@@ -1,0 +1,80 @@
+---
+import Container from "@/components/ui/Container.astro";
+import Button from "@/components/ui/Button.astro";
+import { siteConfig } from "@/config/site";
+import { whatsappLink } from "@/lib/whatsapp";
+---
+
+<section id="inicio" class="relative overflow-hidden bg-blush pt-16">
+  <Container class="grid items-center gap-8 pt-14 pb-20 md:grid-cols-[1.1fr_1fr] md:py-28">
+    <div>
+      <p class="mb-5 text-sm tracking-wide text-mauve">{siteConfig.region}</p>
+
+      <h1 class="font-display text-[3.4rem] leading-[0.95] font-medium sm:text-7xl lg:text-8xl">
+        Studio<br />KB Beauty
+      </h1>
+
+      <p class="mt-6 max-w-sm text-lg text-mauve md:text-xl">{siteConfig.tagline}</p>
+
+      <div class="mt-9 flex flex-col gap-3 sm:flex-row">
+        <Button href={whatsappLink()} external>Agendar pelo WhatsApp</Button>
+        <Button href="#servicos" variant="outline">Ver serviços</Button>
+      </div>
+    </div>
+
+    <!-- Elemento assinatura: a linha de um cílio se desenhando ao abrir o site -->
+    <svg
+      viewBox="0 0 400 220"
+      fill="none"
+      stroke-linecap="round"
+      aria-hidden="true"
+      class="lash mx-auto w-3/4 max-w-md text-berry md:w-full"
+    >
+      <path class="lash-line" d="M20 60 C 110 170, 290 170, 380 60" stroke="currentColor" stroke-width="2" />
+      <g class="lash-hairs" stroke="currentColor" stroke-width="1.4">
+        <path d="M58 98 C 50 118, 40 130, 28 138" />
+        <path d="M92 120 C 88 142, 80 160, 70 172" />
+        <path d="M130 134 C 129 158, 125 178, 118 194" />
+        <path d="M170 141 C 171 166, 170 186, 166 204" />
+        <path d="M210 142 C 212 167, 214 188, 214 206" />
+        <path d="M250 137 C 254 161, 260 181, 266 197" />
+        <path d="M288 125 C 295 147, 304 165, 314 178" />
+        <path d="M324 106 C 334 125, 346 139, 360 148" />
+      </g>
+    </svg>
+  </Container>
+</section>
+
+<style>
+  .lash-line {
+    stroke-dasharray: 420;
+    stroke-dashoffset: 420;
+    animation: draw 1.4s ease-out 0.2s forwards;
+  }
+  .lash-hairs path {
+    stroke-dasharray: 80;
+    stroke-dashoffset: 80;
+    animation: draw 0.6s ease-out forwards;
+  }
+  /* Cada fio aparece logo depois do anterior */
+  .lash-hairs path:nth-child(1) { animation-delay: 1.2s; }
+  .lash-hairs path:nth-child(2) { animation-delay: 1.28s; }
+  .lash-hairs path:nth-child(3) { animation-delay: 1.36s; }
+  .lash-hairs path:nth-child(4) { animation-delay: 1.44s; }
+  .lash-hairs path:nth-child(5) { animation-delay: 1.52s; }
+  .lash-hairs path:nth-child(6) { animation-delay: 1.6s; }
+  .lash-hairs path:nth-child(7) { animation-delay: 1.68s; }
+  .lash-hairs path:nth-child(8) { animation-delay: 1.76s; }
+
+  @keyframes draw {
+    to { stroke-dashoffset: 0; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .lash-line,
+    .lash-hairs path {
+      animation: none;
+      stroke-dashoffset: 0;
+    }
+  }
+</style>

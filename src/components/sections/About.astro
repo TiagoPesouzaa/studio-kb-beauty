@@ -1,0 +1,15 @@
+---
+import Container from "@/components/ui/Container.astro";
+import Photo from "@/components/ui/Photo.astro";
+import { about } from "@/data/content";
+---
+
+<section id="sobre" aria-labelledby="sobre-titulo" class="py-20 md:py-28">
+  <Container class="grid items-center gap-10 md:grid-cols-2 md:gap-16">
+    <Photo src={about.image} alt="Foto da profissional do Studio KB Beauty" class="mx-auto max-w-sm" />
+    <div>
+      <h2 id="sobre-titulo" class="font-display text-4xl leading-tight md:text-5xl">{about.title}</h2>
+      {about.paragraphs.map((text) => <p class="mt-5 text-lg text-mauve">{text}</p>)}
+    </div>
+  </Container>
+</section>

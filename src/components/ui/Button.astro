@@ -1,0 +1,32 @@
+---
+/**
+ * Botão-link reutilizável. Variantes:
+ * - primary: ação principal (agendar)
+ * - outline: ação secundária
+ */
+type Props = {
+  href: string;
+  variant?: "primary" | "outline";
+  external?: boolean;
+  class?: string;
+};
+
+const { href, variant = "primary", external = false, class: className } = Astro.props;
+
+const variants = {
+  primary: "bg-berry text-white hover:bg-berry-dark",
+  outline: "border border-berry text-berry hover:bg-blush",
+};
+---
+
+<a
+  href={href}
+  class:list={[
+    "inline-flex min-h-12 items-center justify-center gap-2 rounded-full px-6 text-[0.95rem] font-medium tracking-wide transition-colors",
+    variants[variant],
+    className,
+  ]}
+  {...external && { target: "_blank", rel: "noopener noreferrer" }}
+>
+  <slot />
+</a>

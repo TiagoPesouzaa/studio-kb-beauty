@@ -1,0 +1,64 @@
+---
+/**
+ * Layout base: tudo que vai no <head> de todas as páginas.
+ * SEO, fontes, favicon e os dados estruturados para o Google.
+ */
+import "@/styles/global.css";
+import { siteConfig } from "@/config/site";
+import { whatsappLink, instagramLink } from "@/lib/whatsapp";
+
+type Props = {
+  title?: string;
+  description?: string;
+};
+
+const { title = `${siteConfig.name} | Cílios e sobrancelhas`, description = siteConfig.description } =
+  Astro.props;
+
+const canonical = new URL(Astro.url.pathname, siteConfig.url).href;
+
+// JSON-LD: ajuda o Google a entender que é um negócio de beleza
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "BeautySalon",
+  name: siteConfig.name,
+  description: siteConfig.description,
+  url: siteConfig.url,
+  areaServed: siteConfig.region,
+  sameAs: [instagramLink()],
+  potentialAction: { "@type": "ReserveAction", target: whatsappLink() },
+};
+---
+
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta name="theme-color" content="#fbeaef" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Open Graph: como o link aparece quando compartilhado no WhatsApp/Instagram -->
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content={siteConfig.locale} />
+    <meta property="og:site_name" content={siteConfig.name} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400..700&family=Jost:wght@300..600&display=swap"
+    />
+
+    <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

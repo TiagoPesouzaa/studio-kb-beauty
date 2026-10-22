@@ -1,0 +1,9 @@
+---
+/** Centraliza o conteúdo e define a largura máxima e as margens laterais. */
+type Props = { class?: string };
+const { class: className } = Astro.props;
+---
+
+<div class:list={["mx-auto w-full max-w-6xl px-5 md:px-8", className]}>
+  <slot />
+</div>

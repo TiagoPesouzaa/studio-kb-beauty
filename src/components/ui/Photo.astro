@@ -1,0 +1,42 @@
+---
+/**
+ * Mostra a foto quando existe `src`; sem foto, mostra um espaço reservado
+ * com a mesma proporção. Assim o layout não muda quando as fotos chegarem.
+ */
+type Props = {
+  src?: string;
+  alt: string;
+  aspect?: "square" | "portrait";
+  class?: string;
+};
+
+const { src, alt, aspect = "portrait", class: className } = Astro.props;
+const ratio = aspect === "square" ? "aspect-square" : "aspect-[4/5]";
+---
+
+{
+  src ? (
+    <img
+      src={src}
+      alt={alt}
+      loading="lazy"
+      decoding="async"
+      class:list={["w-full rounded-2xl object-cover", ratio, className]}
+    />
+  ) : (
+    <div
+      role="img"
+      aria-label={`${alt} (foto em breve)`}
+      class:list={[
+        "flex w-full items-center justify-center rounded-2xl bg-blush text-rose",
+        ratio,
+        className,
+      ]}
+    >
+      <svg viewBox="0 0 48 24" class="w-1/4 max-w-16" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" aria-hidden="true">
+        <path d="M4 6c6 9 14 13 20 13s14-4 20-13" />
+        <path d="M10 13.5 7.5 18M17 17l-1.2 5M24 19v5M31 17l1.2 5M38 13.5l2.5 4.5" />
+      </svg>
+    </div>
+  )
+}

@@ -1,0 +1,36 @@
+---
+import Container from "@/components/ui/Container.astro";
+import Button from "@/components/ui/Button.astro";
+import { siteConfig } from "@/config/site";
+import { whatsappLink, instagramLink } from "@/lib/whatsapp";
+
+const year = new Date().getFullYear();
+---
+
+<footer class="bg-plum pt-20 pb-28 text-white md:pb-12">
+  <Container>
+    <div class="grid gap-12 md:grid-cols-[1.4fr_1fr]">
+      <div>
+        <p class="font-display text-4xl leading-tight md:text-5xl">Vamos cuidar do seu olhar?</p>
+        <p class="mt-4 max-w-md text-white/70">{siteConfig.region}. {siteConfig.regionNote}</p>
+        <Button href={whatsappLink()} external class="mt-8">Agendar pelo WhatsApp</Button>
+      </div>
+
+      <dl class="grid gap-6 self-end text-white/80">
+        <div>
+          <dt class="text-sm text-white/50">WhatsApp</dt>
+          <dd><a href={whatsappLink()} target="_blank" rel="noopener noreferrer" class="hover:text-rose">{siteConfig.contact.whatsappDisplay}</a></dd>
+        </div>
+        <div>
+          <dt class="text-sm text-white/50">Instagram</dt>
+          <dd><a href={instagramLink()} target="_blank" rel="noopener noreferrer" class="hover:text-rose">@{siteConfig.contact.instagram}</a></dd>
+        </div>
+      </dl>
+    </div>
+
+    <div class="mt-16 flex flex-col gap-2 border-t border-white/10 pt-6 text-sm text-white/50 sm:flex-row sm:justify-between">
+      <p>© {year} {siteConfig.name}</p>
+      <p>Site por <a href={siteConfig.credits.url} target="_blank" rel="noopener noreferrer" class="underline underline-offset-4 hover:text-white">{siteConfig.credits.label}</a></p>
+    </div>
+  </Container>
+</footer>

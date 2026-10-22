@@ -1,0 +1,27 @@
+---
+import Container from "@/components/ui/Container.astro";
+import SectionHeading from "@/components/ui/SectionHeading.astro";
+import Photo from "@/components/ui/Photo.astro";
+import Button from "@/components/ui/Button.astro";
+import { gallery } from "@/data/content";
+import { instagramLink } from "@/lib/whatsapp";
+import { siteConfig } from "@/config/site";
+---
+
+<section id="galeria" aria-labelledby="galeria-titulo" class="bg-blush/50 py-20 md:py-28">
+  <Container>
+    <SectionHeading id="galeria-titulo" title="Galeria" subtitle="Alguns resultados do estúdio." />
+
+    <ul class="grid grid-cols-2 gap-3 md:grid-cols-3 md:gap-5">
+      {gallery.map((image) => (
+        <li><Photo src={image.src} alt={image.alt} aspect="square" /></li>
+      ))}
+    </ul>
+
+    <div class="mt-10">
+      <Button href={instagramLink()} variant="outline" external>
+        Mais trabalhos no @{siteConfig.contact.instagram}
+      </Button>
+    </div>
+  </Container>
+</section>

@@ -1,0 +1,35 @@
+---
+import Container from "@/components/ui/Container.astro";
+import { siteConfig } from "@/config/site";
+import { whatsappLink } from "@/lib/whatsapp";
+
+const links = [
+  { href: "#servicos", label: "Serviços" },
+  { href: "#galeria", label: "Galeria" },
+  { href: "#sobre", label: "Sobre" },
+  { href: "#duvidas", label: "Dúvidas" },
+];
+---
+
+<header class="fixed inset-x-0 top-0 z-40 border-b border-petal/70 bg-white/90 backdrop-blur">
+  <Container class="flex h-16 items-center justify-between">
+    <a href="#inicio" class="font-display text-xl tracking-wide">{siteConfig.shortName}</a>
+
+    <nav aria-label="Seções do site" class="hidden md:block">
+      <ul class="flex gap-8 text-[0.95rem] text-mauve">
+        {links.map((link) => (
+          <li><a href={link.href} class="transition-colors hover:text-berry">{link.label}</a></li>
+        ))}
+      </ul>
+    </nav>
+
+    <a
+      href={whatsappLink()}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="rounded-full border border-berry px-4 py-1.5 text-sm font-medium text-berry transition-colors hover:bg-berry hover:text-white"
+    >
+      Agendar
+    </a>
+  </Container>
+</header>

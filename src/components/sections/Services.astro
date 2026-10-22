@@ -1,0 +1,98 @@
+---
+import Container from "@/components/ui/Container.astro";
+import SectionHeading from "@/components/ui/SectionHeading.astro";
+import Photo from "@/components/ui/Photo.astro";
+import { serviceCategories } from "@/data/services";
+import { whatsappLinkForService } from "@/lib/whatsapp";
+---
+
+<section id="servicos" aria-labelledby="servicos-titulo" class="py-20 md:py-28">
+  <Container>
+    <SectionHeading
+      id="servicos-titulo"
+      title="Serviços"
+      subtitle="Escolha o serviço e agende direto pelo WhatsApp. Os valores são passados na conversa."
+    />
+
+    <!-- Abas: no celular, uma categoria por vez deixa a lista curta -->
+    <div role="tablist" aria-label="Categorias de serviço" class="mb-10 inline-flex rounded-full bg-blush p-1">
+      {serviceCategories.map((category, index) => (
+        <button
+          type="button"
+          role="tab"
+          id={`tab-${category.id}`}
+          aria-controls={`painel-${category.id}`}
+          aria-selected={index === 0 ? "true" : "false"}
+          tabindex={index === 0 ? 0 : -1}
+          class="rounded-full px-6 py-2.5 text-[0.95rem] font-medium text-mauve transition-colors aria-selected:bg-white aria-selected:text-berry aria-selected:shadow-sm"
+        >
+          {category.title}
+        </button>
+      ))}
+    </div>
+
+    {serviceCategories.map((category, index) => (
+      <div
+        role="tabpanel"
+        id={`painel-${category.id}`}
+        aria-labelledby={`tab-${category.id}`}
+        hidden={index !== 0}
+      >
+        <ul class="grid gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
+          {category.services.map((service) => (
+            <li class="flex gap-5 sm:flex-col">
+              <div class="w-24 shrink-0 sm:w-full">
+                <Photo src={service.image} alt={service.name} aspect="square" />
+              </div>
+              <div class="flex flex-1 flex-col">
+                <h3 class="font-display text-2xl leading-snug">
+                  {service.name}
+                  {service.comingSoon && (
+                    <span class="ml-2 align-middle font-sans text-xs font-medium text-berry">Em breve</span>
+                  )}
+                </h3>
+                {service.description && <p class="mt-1.5 text-mauve">{service.description}</p>}
+                {!service.comingSoon && (
+                  <a
+                    href={whatsappLinkForService(service.name)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="mt-3 self-start text-[0.95rem] font-medium text-berry underline decoration-rose underline-offset-4 hover:decoration-berry"
+                  >
+                    Agendar {service.name}
+                  </a>
+                )}
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
+    ))}
+  </Container>
+</section>
+
+<script>
+  // Troca de aba com clique e com as setas do teclado (padrão de acessibilidade WAI-ARIA)
+  const tabs = Array.from(document.querySelectorAll<HTMLButtonElement>('#servicos [role="tab"]'));
+
+  function selectTab(selected: HTMLButtonElement) {
+    for (const tab of tabs) {
+      const isSelected = tab === selected;
+      tab.setAttribute("aria-selected", String(isSelected));
+      tab.tabIndex = isSelected ? 0 : -1;
+      const panel = document.getElementById(tab.getAttribute("aria-controls")!);
+      if (panel) panel.hidden = !isSelected;
+    }
+  }
+
+  tabs.forEach((tab, index) => {
+    tab.addEventListener("click", () => selectTab(tab));
+    tab.addEventListener("keydown", (event) => {
+      if (event.key !== "ArrowRight" && event.key !== "ArrowLeft") return;
+      const step = event.key === "ArrowRight" ? 1 : -1;
+      const next = tabs[(index + step + tabs.length) % tabs.length];
+      selectTab(next);
+      next.focus();
+    });
+  });
+</script>

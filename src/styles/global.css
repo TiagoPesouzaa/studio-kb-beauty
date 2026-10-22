@@ -1,1 +1,47 @@
 @import "tailwindcss";
+
+/*
+ * Design tokens: as cores e fontes da marca viram classes do Tailwind.
+ * Ex.: --color-berry gera bg-berry, text-berry, border-berry.
+ * Para outro cliente, troque só este bloco.
+ */
+@theme {
+  --color-blush: #fbeaef;
+  --color-petal: #f6d5df;
+  --color-rose: #e7a6b9;
+  --color-berry: #a03e62;
+  --color-berry-dark: #84304f;
+  --color-plum: #2e1a22;
+  --color-mauve: #75535f;
+
+  --font-display: "Bodoni Moda", "Didot", "Georgia", serif;
+  --font-sans: "Jost", "Segoe UI", system-ui, sans-serif;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    /* Compensa o header fixo ao navegar pelas âncoras (#servicos etc.) */
+    scroll-padding-top: 5rem;
+  }
+
+  body {
+    @apply bg-white font-sans text-plum antialiased;
+  }
+
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-berry;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

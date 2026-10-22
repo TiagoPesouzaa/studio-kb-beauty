@@ -1,16 +1,30 @@
 ---
+/**
+ * Página inicial: só organiza as seções na ordem.
+ * O conteúdo vem de src/data e src/config; o visual, de src/components.
+ */
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Header from "@/components/sections/Header.astro";
+import Hero from "@/components/sections/Hero.astro";
+import Services from "@/components/sections/Services.astro";
+import Gallery from "@/components/sections/Gallery.astro";
+import About from "@/components/sections/About.astro";
+import Testimonials from "@/components/sections/Testimonials.astro";
+import Faq from "@/components/sections/Faq.astro";
+import Footer from "@/components/sections/Footer.astro";
+import WhatsAppFloat from "@/components/sections/WhatsAppFloat.astro";
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout>
+  <Header />
+  <main>
+    <Hero />
+    <Services />
+    <Gallery />
+    <About />
+    <Testimonials />
+    <Faq />
+  </main>
+  <Footer />
+  <WhatsAppFloat />
+</BaseLayout>
