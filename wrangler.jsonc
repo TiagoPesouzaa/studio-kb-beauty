@@ -1,0 +1,10 @@
+// Configuração de deploy na Cloudflare (Workers com arquivos estáticos).
+// O Astro gera o site em ./dist no `npm run build`; a Cloudflare só publica essa pasta.
+{
+  "name": "studio-kb-beauty",
+  "compatibility_date": "2026-10-01",
+  "assets": {
+    "directory": "./dist",
+    "not_found_handling": "404-page"
+  }
+}
