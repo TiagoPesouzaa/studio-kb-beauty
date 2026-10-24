@@ -2,16 +2,16 @@ import type { FaqItem, GalleryImage, Testimonial } from "@/types";
 import { siteConfig } from "@/config/site";
 
 /**
- * Galeria. Para adicionar fotos: salve em /public/images/galeria/
- * e preencha `src` (ex.: "/images/galeria/01.jpg").
+ * Galeria (fotos em retrato 4:5).
+ * Geradas por scripts/optimize_photos.py em /public/images/galeria/.
  */
 export const gallery: GalleryImage[] = [
-  { alt: "Extensão de cílios, resultado 1" },
-  { alt: "Extensão de cílios, resultado 2" },
-  { alt: "Design de sobrancelhas, resultado 1" },
-  { alt: "Lash lifting, resultado 1" },
-  { alt: "Brow lamination, resultado 1" },
-  { alt: "Microblading, resultado 1" },
+  { src: "/images/galeria/01.webp", alt: "Microblading: antes e depois" },
+  { src: "/images/galeria/02.webp", alt: "Extensão de cílios com volume" },
+  { src: "/images/galeria/03.webp", alt: "Cílios e sobrancelhas, resultado finalizado" },
+  { src: "/images/galeria/04.webp", alt: "Cílios e sobrancelhas, resultado finalizado" },
+  { src: "/images/galeria/05.webp", alt: "Design de sobrancelhas em duas clientes" },
+  { src: "/images/galeria/06.webp", alt: "Design de sobrancelhas, resultado finalizado" },
 ];
 
 export const about = {
@@ -21,7 +21,7 @@ export const about = {
     `O ${siteConfig.name} é dedicado a cílios e sobrancelhas: técnicas de extensão, lash lifting, design, brow lamination e micropigmentação.`,
     "Cada atendimento começa entendendo o seu rosto e o efeito que você quer, para chegar a um resultado que combine com você.",
   ],
-  image: undefined as string | undefined, // ex.: "/images/sobre/perfil.jpg"
+  image: "/images/sobre/perfil.webp" as string | undefined,
 };
 
 /** Depoimentos reais de clientes. Enquanto a lista estiver vazia, a seção não aparece. */

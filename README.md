@@ -51,16 +51,22 @@ public/images/             # fotos (servicos/, galeria/, sobre/)
 
 ## Como atualizar o conteúdo
 
-**Adicionar fotos:** salve a imagem na pasta certa dentro de `public/images/` e preencha o caminho no arquivo de dados. Sem foto, o site mostra um espaço reservado com a mesma proporção.
+**Fotos:** as originais ficam em `fotos/` (fora do Git, organizadas por procedimento). As versões do site são geradas por um script, que gira, recorta e converte para `.webp`:
+
+```bash
+python scripts/optimize_photos.py fotos
+```
+
+O mapeamento de qual foto vai para onde fica no dicionário `PHOTOS` do script. Para trocar uma foto, ajuste ali e rode de novo. Depois, use o caminho gerado no arquivo de dados:
 
 ```ts
 // src/data/services.ts
-{ slug: "volume-4d", name: "Volume 4D", image: "/images/servicos/volume-4d.jpg" }
+{ slug: "volume-4d", name: "Volume 4D", image: "/images/servicos/volume-4d.webp" }
 ```
 
-Use fotos em `.jpg` ou `.webp`, com até ~1600px no lado maior, para o site continuar leve no celular.
+Sem foto, o site mostra um espaço reservado com a mesma proporção.
 
-**Adicionar depoimentos:** preencha `testimonials` em `src/data/content.ts`. A seção só aparece quando a lista tem itens. Use apenas depoimentos reais, com autorização das clientes.
+**Depoimentos:** preencha `testimonials` em `src/data/content.ts`. A seção só aparece quando a lista tem itens. Use apenas depoimentos reais, com autorização das clientes.
 
 ## Reaproveitando como template
 
@@ -70,8 +76,8 @@ Use fotos em `.jpg` ou `.webp`, com até ~1600px no lado maior, para o site cont
 
 ## Pendências
 
-- [ ] Descrições de Volume KB Beauty, Divine Bloom 3D, Volume 4D e Divine Power
-- [ ] Confirmar a descrição do Spa das sobrancelhas
+- [ ] Fotos de Divine Bloom 3D, Divine Power, Design com Henna e Design de Sobrancelhas
+- [ ] Descrição das técnicas Divine Bloom 3D e Volume 4D
 - [ ] Texto do "Sobre" escrito por ela
-- [ ] Fotos dos serviços, da galeria e do perfil
-- [ ] Domínio final em `siteConfig.url`
+- [ ] Micro Shadow, quando houver fotos
+- [ ] Domínio próprio (atualizar `siteConfig.url`)

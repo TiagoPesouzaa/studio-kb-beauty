@@ -5,76 +5,53 @@ import { siteConfig } from "@/config/site";
 import { whatsappLink } from "@/lib/whatsapp";
 ---
 
+<!--
+  Topo do site: texto à esquerda e a foto dela recortada "saindo" de um arco rosa.
+  No celular, a foto fica embaixo e sobe um pouco por trás do texto (margem negativa).
+-->
 <section id="inicio" class="relative overflow-hidden bg-blush pt-16">
-  <Container class="grid items-center gap-8 pt-14 pb-20 md:grid-cols-[1.1fr_1fr] md:py-28">
-    <div>
-      <p class="mb-5 text-sm tracking-wide text-mauve">{siteConfig.region}</p>
+  <Container class="grid md:grid-cols-2 md:items-end">
+    <div class="relative z-10 pt-10 md:pt-24 md:pb-36">
+      <p class="mb-4 text-sm text-mauve">{siteConfig.region}</p>
 
-      <h1 class="font-display text-[3.4rem] leading-[0.95] font-medium sm:text-7xl lg:text-8xl">
+      <h1 class="font-display text-[3.6rem] leading-[0.92] font-semibold sm:text-7xl lg:text-8xl">
         Studio<br />KB Beauty
       </h1>
 
-      <p class="mt-6 max-w-sm text-lg text-mauve md:text-xl">{siteConfig.tagline}</p>
+      <p class="mt-5 max-w-[15rem] text-mauve sm:max-w-sm md:text-lg">{siteConfig.tagline}</p>
 
-      <div class="mt-9 flex flex-col gap-3 sm:flex-row">
+      <div class="mt-7 flex flex-wrap gap-3">
         <Button href={whatsappLink()} external>Agendar pelo WhatsApp</Button>
-        <Button href="#servicos" variant="outline">Ver serviços</Button>
+        <!-- No celular o botão fixo de WhatsApp já cumpre esse papel -->
+        <div class="hidden md:block">
+          <Button href="#servicos" variant="outline">Ver serviços</Button>
+        </div>
       </div>
     </div>
 
-    <!-- Elemento assinatura: a linha de um cílio se desenhando ao abrir o site -->
-    <svg
-      viewBox="0 0 400 220"
-      fill="none"
-      stroke-linecap="round"
-      aria-hidden="true"
-      class="lash mx-auto w-3/4 max-w-md text-berry md:w-full"
-    >
-      <path class="lash-line" d="M20 60 C 110 170, 290 170, 380 60" stroke="currentColor" stroke-width="2" />
-      <g class="lash-hairs" stroke="currentColor" stroke-width="1.4">
-        <path d="M58 98 C 50 118, 40 130, 28 138" />
-        <path d="M92 120 C 88 142, 80 160, 70 172" />
-        <path d="M130 134 C 129 158, 125 178, 118 194" />
-        <path d="M170 141 C 171 166, 170 186, 166 204" />
-        <path d="M210 142 C 212 167, 214 188, 214 206" />
-        <path d="M250 137 C 254 161, 260 181, 266 197" />
-        <path d="M288 125 C 295 147, 304 165, 314 178" />
-        <path d="M324 106 C 334 125, 346 139, 360 148" />
-      </g>
-    </svg>
+    <div class="relative -mx-5 -mt-20 h-[30rem] sm:-mt-6 sm:h-[34rem] md:mx-0 md:mt-0 md:h-[40rem]">
+      <!-- Arco atrás da foto -->
+      <div
+        aria-hidden="true"
+        class="absolute right-[-12%] bottom-0 h-[86%] w-[92%] rounded-t-full bg-petal md:right-[-4%] md:w-[88%]"
+      >
+      </div>
+      <img
+        src="/images/hero/kb.webp"
+        alt="Profissional do Studio KB Beauty"
+        width="750"
+        height="1000"
+        fetchpriority="high"
+        decoding="async"
+        class="hero-photo absolute right-[-6%] bottom-0 h-full w-auto max-w-none md:right-0"
+      />
+    </div>
   </Container>
 </section>
 
 <style>
-  .lash-line {
-    stroke-dasharray: 420;
-    stroke-dashoffset: 420;
-    animation: draw 1.4s ease-out 0.2s forwards;
-  }
-  .lash-hairs path {
-    stroke-dasharray: 80;
-    stroke-dashoffset: 80;
-    animation: draw 0.6s ease-out forwards;
-  }
-  /* Cada fio aparece logo depois do anterior */
-  .lash-hairs path:nth-child(1) { animation-delay: 1.2s; }
-  .lash-hairs path:nth-child(2) { animation-delay: 1.28s; }
-  .lash-hairs path:nth-child(3) { animation-delay: 1.36s; }
-  .lash-hairs path:nth-child(4) { animation-delay: 1.44s; }
-  .lash-hairs path:nth-child(5) { animation-delay: 1.52s; }
-  .lash-hairs path:nth-child(6) { animation-delay: 1.6s; }
-  .lash-hairs path:nth-child(7) { animation-delay: 1.68s; }
-  .lash-hairs path:nth-child(8) { animation-delay: 1.76s; }
-
-  @keyframes draw {
-    to { stroke-dashoffset: 0; }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .lash-line,
-    .lash-hairs path {
-      animation: none;
-      stroke-dashoffset: 0;
-    }
+  /* Suaviza as laterais onde a foto original termina (o braço e a jaqueta são cortados pela borda) */
+  .hero-photo {
+    mask-image: linear-gradient(to right, transparent 0, #000 12%, #000 88%, transparent 100%);
   }
 </style>

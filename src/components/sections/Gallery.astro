@@ -14,7 +14,7 @@ import { siteConfig } from "@/config/site";
 
     <ul class="grid grid-cols-2 gap-3 md:grid-cols-3 md:gap-5">
       {gallery.map((image) => (
-        <li><Photo src={image.src} alt={image.alt} aspect="square" /></li>
+        <li><Photo src={image.src} alt={image.alt} /></li>
       ))}
     </ul>
 

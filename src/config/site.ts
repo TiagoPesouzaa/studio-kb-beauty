@@ -8,7 +8,7 @@ export const siteConfig = {
   tagline: "Cílios e sobrancelhas feitos sob medida para o seu olhar.",
   description:
     "Studio KB Beauty: extensão de cílios, lash lifting, design de sobrancelhas, brow lamination e microblading na Zona Leste de São Paulo. Agendamento pelo WhatsApp.",
-  url: "https://studio-kb-beauty.vercel.app", // TODO: trocar pelo domínio final
+  url: "https://studio-kb-beauty.tiago22-p-s.workers.dev", // TODO: trocar quando tiver domínio próprio
   locale: "pt_BR",
 
   region: "Zona Leste de São Paulo",
@@ -17,7 +17,7 @@ export const siteConfig = {
   contact: {
     whatsapp: "5511985105286", // formato internacional: 55 + DDD + número
     whatsappDisplay: "(11) 98510-5286",
-    instagram: "desiigner_kb",
+    instagram: "desiigner__kb",
   },
 
   /** Crédito discreto no rodapé, que também leva clientes até você. */

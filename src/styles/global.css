@@ -6,16 +6,17 @@
  * Para outro cliente, troque só este bloco.
  */
 @theme {
-  --color-blush: #fbeaef;
-  --color-petal: #f6d5df;
-  --color-rose: #e7a6b9;
-  --color-berry: #a03e62;
-  --color-berry-dark: #84304f;
-  --color-plum: #2e1a22;
-  --color-mauve: #75535f;
+  /* Rosa vibrante da marca (tom do Instagram e do uniforme dela) */
+  --color-blush: #ffe6f2; /* fundos suaves */
+  --color-petal: #ffc2df; /* bordas e divisórias */
+  --color-rose: #ff5fa8; /* detalhes; também usado sobre o fundo escuro */
+  --color-berry: #d6106f; /* cor principal: botões e links (contraste 5:1 com branco) */
+  --color-berry-dark: #b00c5b; /* hover dos botões */
+  --color-plum: #2a1020; /* texto */
+  --color-mauve: #7a4a62; /* texto secundário */
 
-  --font-display: "Bodoni Moda", "Didot", "Georgia", serif;
-  --font-sans: "Jost", "Segoe UI", system-ui, sans-serif;
+  --font-display: "Cormorant Garamond", "Georgia", serif;
+  --font-sans: "Montserrat", "Segoe UI", system-ui, sans-serif;
 }
 
 @layer base {
