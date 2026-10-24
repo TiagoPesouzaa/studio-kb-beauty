@@ -2,20 +2,20 @@
 /** Só aparece quando houver depoimentos reais em src/data/content.ts */
 import Container from "@/components/ui/Container.astro";
 import SectionHeading from "@/components/ui/SectionHeading.astro";
-import { testimonials } from "@/data/content";
+import { testimonials, testimonialsSection } from "@/data/content";
 ---
 
 {
   testimonials.length > 0 && (
-    <section id="depoimentos" aria-labelledby="depoimentos-titulo" class="bg-blush/50 py-20 md:py-28">
+    <section id="depoimentos" aria-labelledby="depoimentos-titulo" class="bg-surface/50 py-20 md:py-28">
       <Container>
-        <SectionHeading id="depoimentos-titulo" title="Quem já passou por aqui" />
+        <SectionHeading id="depoimentos-titulo" title={testimonialsSection.title} />
         <ul class="grid gap-6 md:grid-cols-3">
           {testimonials.map((item) => (
             <li>
               <figure class="h-full rounded-2xl bg-white p-7">
                 <blockquote class="font-display text-xl leading-relaxed">“{item.text}”</blockquote>
-                <figcaption class="mt-4 text-sm text-mauve">{item.author}</figcaption>
+                <figcaption class="mt-4 text-sm text-muted">{item.author}</figcaption>
               </figure>
             </li>
           ))}

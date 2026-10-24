@@ -35,3 +35,16 @@ export type Testimonial = {
   author: string;
   text: string;
 };
+
+export type NavLink = {
+  href: string;
+  label: string;
+};
+
+/** Imagem com dimensões conhecidas (evita o layout "pular" enquanto carrega). */
+export type ImageAsset = {
+  src: string;
+  alt: string;
+  width: number;
+  height: number;
+};

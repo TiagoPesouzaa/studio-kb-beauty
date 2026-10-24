@@ -3,19 +3,20 @@ import Container from "@/components/ui/Container.astro";
 import SectionHeading from "@/components/ui/SectionHeading.astro";
 import Photo from "@/components/ui/Photo.astro";
 import { serviceCategories } from "@/data/services";
-import { whatsappLinkForService } from "@/lib/whatsapp";
+import { whatsappLinkForService } from "@/lib/links";
+import { servicesSection } from "@/data/content";
 ---
 
 <section id="servicos" aria-labelledby="servicos-titulo" class="py-20 md:py-28">
   <Container>
     <SectionHeading
       id="servicos-titulo"
-      title="Serviços"
-      subtitle="Escolha o serviço e agende direto pelo WhatsApp. Os valores são passados na conversa."
+      title={servicesSection.title}
+      subtitle={servicesSection.subtitle}
     />
 
     <!-- Abas: no celular, uma categoria por vez deixa a lista curta -->
-    <div role="tablist" aria-label="Categorias de serviço" class="mb-10 inline-flex rounded-full bg-blush p-1">
+    <div role="tablist" aria-label="Categorias de serviço" class="mb-10 inline-flex rounded-full bg-surface p-1">
       {serviceCategories.map((category, index) => (
         <button
           type="button"
@@ -24,7 +25,7 @@ import { whatsappLinkForService } from "@/lib/whatsapp";
           aria-controls={`painel-${category.id}`}
           aria-selected={index === 0 ? "true" : "false"}
           tabindex={index === 0 ? 0 : -1}
-          class="rounded-full px-6 py-2.5 text-[0.95rem] font-medium text-mauve transition-colors aria-selected:bg-white aria-selected:text-berry aria-selected:shadow-sm"
+          class="rounded-full px-6 py-2.5 text-[0.95rem] font-medium text-muted transition-colors aria-selected:bg-white aria-selected:text-primary aria-selected:shadow-sm"
         >
           {category.title}
         </button>
@@ -48,16 +49,16 @@ import { whatsappLinkForService } from "@/lib/whatsapp";
                 <h3 class="font-display text-2xl leading-snug">
                   {service.name}
                   {service.comingSoon && (
-                    <span class="ml-2 align-middle font-sans text-xs font-medium text-berry">Em breve</span>
+                    <span class="ml-2 align-middle font-sans text-xs font-medium text-primary">Em breve</span>
                   )}
                 </h3>
-                {service.description && <p class="mt-1.5 text-mauve">{service.description}</p>}
+                {service.description && <p class="mt-1.5 text-muted">{service.description}</p>}
                 {!service.comingSoon && (
                   <a
                     href={whatsappLinkForService(service.name)}
                     target="_blank"
                     rel="noopener noreferrer"
-                    class="mt-3 self-start text-[0.95rem] font-medium text-berry underline decoration-rose underline-offset-4 hover:decoration-berry"
+                    class="mt-3 self-start text-[0.95rem] font-medium text-primary underline decoration-accent underline-offset-4 hover:decoration-primary"
                   >
                     Agendar {service.name}
                   </a>

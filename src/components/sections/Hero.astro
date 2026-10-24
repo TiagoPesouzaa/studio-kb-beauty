@@ -2,26 +2,27 @@
 import Container from "@/components/ui/Container.astro";
 import Button from "@/components/ui/Button.astro";
 import { siteConfig } from "@/config/site";
-import { whatsappLink } from "@/lib/whatsapp";
+import { whatsappLink } from "@/lib/links";
+import { cta, hero } from "@/data/content";
 ---
 
 <!--
   Topo do site: texto à esquerda e a foto dela recortada "saindo" de um arco rosa.
   No celular, a foto fica embaixo e sobe um pouco por trás do texto (margem negativa).
 -->
-<section id="inicio" class="relative overflow-hidden bg-blush pt-16">
+<section id="inicio" class="relative overflow-hidden bg-surface pt-16">
   <Container class="grid md:grid-cols-2 md:items-end">
     <div class="relative z-10 pt-10 md:pt-24 md:pb-36">
-      <p class="mb-4 text-sm text-mauve">{siteConfig.region}</p>
+      <p class="mb-4 text-sm text-muted">{siteConfig.region}</p>
 
       <h1 class="font-display text-[3.6rem] leading-[0.92] font-semibold sm:text-7xl lg:text-8xl">
-        Studio<br />KB Beauty
+        {hero.titleLines.map((line) => <span class="block">{line}</span>)}
       </h1>
 
-      <p class="mt-5 max-w-[15rem] text-mauve sm:max-w-sm md:text-lg">{siteConfig.tagline}</p>
+      <p class="mt-5 max-w-[15rem] text-muted sm:max-w-sm md:text-lg">{siteConfig.tagline}</p>
 
       <div class="mt-7 flex flex-wrap gap-3">
-        <Button href={whatsappLink()} external>Agendar pelo WhatsApp</Button>
+        <Button href={whatsappLink()} external>{cta.label}</Button>
         <!-- No celular o botão fixo de WhatsApp já cumpre esse papel -->
         <div class="hidden md:block">
           <Button href="#servicos" variant="outline">Ver serviços</Button>
@@ -33,14 +34,14 @@ import { whatsappLink } from "@/lib/whatsapp";
       <!-- Arco atrás da foto -->
       <div
         aria-hidden="true"
-        class="absolute right-[-12%] bottom-0 h-[86%] w-[92%] rounded-t-full bg-petal md:right-[-4%] md:w-[88%]"
+        class="absolute right-[-12%] bottom-0 h-[86%] w-[92%] rounded-t-full bg-surface-strong md:right-[-4%] md:w-[88%]"
       >
       </div>
       <img
-        src="/images/hero/kb.webp"
-        alt="Profissional do Studio KB Beauty"
-        width="750"
-        height="1000"
+        src={hero.image.src}
+        alt={hero.image.alt}
+        width={hero.image.width}
+        height={hero.image.height}
         fetchpriority="high"
         decoding="async"
         class="hero-photo absolute right-[-6%] bottom-0 h-full w-auto max-w-none md:right-0"

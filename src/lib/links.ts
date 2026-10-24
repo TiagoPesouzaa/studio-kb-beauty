@@ -1,9 +1,11 @@
 import { siteConfig } from "@/config/site";
 
+/** Links externos do negócio, montados a partir do siteConfig. */
+
 const DEFAULT_MESSAGE = "Oi! Vim pelo site e quero agendar um horário.";
 
 /**
- * Monta o link do WhatsApp com a mensagem já escrita.
+ * Link do WhatsApp com a mensagem já escrita.
  * `encodeURIComponent` converte espaços e acentos para o formato de URL.
  */
 export function whatsappLink(message: string = DEFAULT_MESSAGE): string {

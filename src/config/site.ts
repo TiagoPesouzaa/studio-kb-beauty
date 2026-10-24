@@ -10,6 +10,16 @@ export const siteConfig = {
     "Studio KB Beauty: extensão de cílios, lash lifting, design de sobrancelhas, brow lamination e microblading na Zona Leste de São Paulo. Agendamento pelo WhatsApp.",
   url: "https://studio-kb-beauty.tiago22-p-s.workers.dev", // TODO: trocar quando tiver domínio próprio
   locale: "pt_BR",
+  /** Tipo do negócio para o Google (schema.org): BeautySalon, Restaurant, BarberShop... */
+  schemaType: "BeautySalon",
+
+  theme: {
+    /** Cor da barra do navegador no celular (use o --color-surface) */
+    color: "#ffe6f2",
+    /** Fontes do Google usadas em --font-display e --font-sans */
+    fontsHref:
+      "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Montserrat:wght@400;500;600&display=swap",
+  },
 
   region: "Zona Leste de São Paulo",
   regionNote: "O endereço é enviado no momento do agendamento.",

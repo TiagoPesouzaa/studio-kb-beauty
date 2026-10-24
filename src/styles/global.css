@@ -1,19 +1,21 @@
 @import "tailwindcss";
 
 /*
- * Design tokens: as cores e fontes da marca viram classes do Tailwind.
- * Ex.: --color-berry gera bg-berry, text-berry, border-berry.
- * Para outro cliente, troque só este bloco.
+ * Design tokens: a identidade visual do cliente.
+ * Os nomes são semânticos (primary, surface, ink...), não de cor: os componentes
+ * usam bg-primary, text-ink etc., e para outro cliente só este bloco muda.
+ *
+ * Cliente atual: Studio KB Beauty, rosa vibrante do Instagram e do uniforme dela.
+ * Ao trocar as fontes, atualize também siteConfig.theme.fontsHref.
  */
 @theme {
-  /* Rosa vibrante da marca (tom do Instagram e do uniforme dela) */
-  --color-blush: #ffe6f2; /* fundos suaves */
-  --color-petal: #ffc2df; /* bordas e divisórias */
-  --color-rose: #ff5fa8; /* detalhes; também usado sobre o fundo escuro */
-  --color-berry: #d6106f; /* cor principal: botões e links (contraste 5:1 com branco) */
-  --color-berry-dark: #b00c5b; /* hover dos botões */
-  --color-plum: #2a1020; /* texto */
-  --color-mauve: #7a4a62; /* texto secundário */
+  --color-surface: #ffe6f2; /* fundos suaves */
+  --color-surface-strong: #ffc2df; /* bordas e divisórias */
+  --color-accent: #ff5fa8; /* detalhes; também usado sobre o fundo escuro */
+  --color-primary: #d6106f; /* cor principal: botões e links (contraste 5:1 com branco) */
+  --color-primary-strong: #b00c5b; /* hover dos botões */
+  --color-ink: #2a1020; /* texto */
+  --color-muted: #7a4a62; /* texto secundário */
 
   --font-display: "Cormorant Garamond", "Georgia", serif;
   --font-sans: "Montserrat", "Segoe UI", system-ui, sans-serif;
@@ -27,11 +29,11 @@
   }
 
   body {
-    @apply bg-white font-sans text-plum antialiased;
+    @apply bg-white font-sans text-ink antialiased;
   }
 
   :focus-visible {
-    @apply outline-2 outline-offset-2 outline-berry;
+    @apply outline-2 outline-offset-2 outline-primary;
   }
 }
 

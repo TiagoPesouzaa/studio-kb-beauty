@@ -1,10 +1,46 @@
-import type { FaqItem, GalleryImage, Testimonial } from "@/types";
+import type { FaqItem, GalleryImage, ImageAsset, NavLink, Testimonial } from "@/types";
 import { siteConfig } from "@/config/site";
 
 /**
- * Galeria (fotos em retrato 4:5).
- * Geradas por scripts/optimize_photos.py em /public/images/galeria/.
+ * Todos os textos e imagens das seções.
+ * Os componentes não têm texto de cliente: tudo que muda de um site para outro fica aqui.
  */
+
+export const navigation: NavLink[] = [
+  { href: "#servicos", label: "Serviços" },
+  { href: "#galeria", label: "Galeria" },
+  { href: "#sobre", label: "Sobre" },
+  { href: "#duvidas", label: "Dúvidas" },
+];
+
+export const cta = {
+  label: "Agendar pelo WhatsApp",
+  shortLabel: "Agendar",
+};
+
+export const hero = {
+  /** Cada item vira uma linha do título */
+  titleLines: ["Studio", "KB Beauty"],
+  /** Foto recortada (fundo transparente), gerada por scripts/optimize_photos.py */
+  image: {
+    src: "/images/hero/kb.webp",
+    alt: "Profissional do Studio KB Beauty",
+    width: 750,
+    height: 1000,
+  } satisfies ImageAsset,
+};
+
+export const servicesSection = {
+  title: "Serviços",
+  subtitle: "Escolha o serviço e agende direto pelo WhatsApp. Os valores são passados na conversa.",
+};
+
+export const gallerySection = {
+  title: "Galeria",
+  subtitle: "Alguns resultados do estúdio.",
+};
+
+/** Galeria (fotos em retrato 4:5), geradas por scripts/optimize_photos.py */
 export const gallery: GalleryImage[] = [
   { src: "/images/galeria/01.webp", alt: "Microblading: antes e depois" },
   { src: "/images/galeria/02.webp", alt: "Extensão de cílios com volume" },
@@ -21,11 +57,22 @@ export const about = {
     `O ${siteConfig.name} é dedicado a cílios e sobrancelhas: técnicas de extensão, lash lifting, design, brow lamination e micropigmentação.`,
     "Cada atendimento começa entendendo o seu rosto e o efeito que você quer, para chegar a um resultado que combine com você.",
   ],
-  image: "/images/sobre/perfil.webp" as string | undefined,
+  image: {
+    src: "/images/sobre/perfil.webp",
+    alt: "Profissional do Studio KB Beauty com pinça e cílios na mão",
+  } as GalleryImage,
+};
+
+export const testimonialsSection = {
+  title: "Quem já passou por aqui",
 };
 
 /** Depoimentos reais de clientes. Enquanto a lista estiver vazia, a seção não aparece. */
 export const testimonials: Testimonial[] = [];
+
+export const faqSection = {
+  title: "Dúvidas frequentes",
+};
 
 export const faq: FaqItem[] = [
   {
@@ -47,3 +94,7 @@ export const faq: FaqItem[] = [
       "Sem problema. Conte no WhatsApp o efeito que você gosta, mais natural ou mais marcado, e eu indico a técnica ideal para você.",
   },
 ];
+
+export const footer = {
+  title: "Vamos cuidar do seu olhar?",
+};

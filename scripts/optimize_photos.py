@@ -3,6 +3,13 @@ Gera as versões otimizadas (.webp) das fotos usadas no site.
 
 Uso: python scripts/optimize_photos.py <pasta-com-as-originais>
 
+Qual foto vai para onde fica em scripts/photos.json (o script não muda de um cliente
+para outro, só o JSON). Cada entrada:
+    "destino.webp": {"src": "pasta/foto.jpeg", "rotate": 0, "center": [0.5, 0.5], "aspect": "square"}
+- rotate: graus no sentido anti-horário (180 desvira foto de cabeça para baixo)
+- center: centro do recorte, em fração da largura e da altura
+- aspect: "square" (1:1), "portrait" (4:5) ou "cutout" (recorte com fundo transparente)
+
 As originais ficam fora do Git (pasta fotos/). Este script é a "receita":
 se uma foto mudar, é só rodar de novo.
 
@@ -10,36 +17,14 @@ O recorte da foto do topo (fundo removido) é gerado uma vez com a biblioteca re
     pip install "rembg[cpu]"
     rembg i -m isnet-general-use fotos/perfil/foto-01.jpeg fotos/perfil/foto-01-recorte.png
 """
+import json
 import sys
 from pathlib import Path
 from PIL import Image, ImageOps
 
 OUT = Path(__file__).resolve().parent.parent / "public" / "images"
 
-# destino: (arquivo de origem, rotação em graus no sentido anti-horário,
-#           centro do recorte em fração da largura/altura, proporção)
-PHOTOS = {
-    # Serviços (quadradas)
-    "servicos/fio-a-fio.webp": ("fio-a-fio/foto-21.jpeg", 180, (0.62, 0.36), "square"),
-    "servicos/volume-brasileiro.webp": ("volume-brasileiro/foto-15.jpeg", 0, (0.5, 0.45), "square"),
-    "servicos/volume-kb-beauty.webp": ("volume-kb-beauty/foto-19.jpeg", 0, (0.5, 0.42), "square"),
-    "servicos/volume-4d.webp": ("volume-4d/foto-20.jpeg", 0, (0.5, 0.5), "square"),
-    "servicos/lash-lifting.webp": ("lash-lifting/foto-18.jpeg", 0, (0.5, 0.5), "square"),
-    "servicos/brow-lamination.webp": ("brow-lamination/foto-03.jpeg", 0, (0.5, 0.4), "square"),
-    "servicos/spa-sobrancelhas.webp": ("spa-sobrancelhas/foto-23.jpeg", 0, (0.6, 0.45), "square"),
-    "servicos/microblading.webp": ("microblading/foto-10.jpeg", 0, (0.5, 0.45), "square"),
-    # Galeria (retrato 4:5)
-    "galeria/01.webp": ("microblading/foto-11.jpeg", 0, (0.5, 0.5), "portrait"),
-    "galeria/02.webp": ("_a-confirmar/foto-06.jpeg", 0, (0.5, 0.5), "portrait"),
-    "galeria/03.webp": ("_a-confirmar/foto-13.jpeg", 180, (0.5, 0.5), "portrait"),
-    "galeria/04.webp": ("_a-confirmar/foto-08.jpeg", 180, (0.5, 0.5), "portrait"),
-    "galeria/05.webp": ("_a-confirmar/foto-05.jpeg", 0, (0.5, 0.5), "portrait"),
-    "galeria/06.webp": ("_a-confirmar/foto-17.jpeg", -90, (0.5, 0.5), "portrait"),
-    # Topo do site: recorte com fundo transparente
-    "hero/kb.webp": ("perfil/foto-01-recorte.png", 0, (0.5, 0.5), "cutout"),
-    # Sobre
-    "sobre/perfil.webp": ("perfil/foto-04.jpeg", 0, (0.55, 0.42), "portrait"),
-}
+CONFIG = Path(__file__).resolve().parent / "photos.json"
 
 SIZES = {"square": (800, 800), "portrait": (800, 1000)}
 CUTOUT_HEIGHT = 1000
@@ -59,7 +44,9 @@ def crop_to_ratio(im: Image.Image, ratio: float, center: tuple[float, float]) ->
 
 
 def main(src_dir: Path) -> None:
-    for dest, (src, rotation, center, aspect) in PHOTOS.items():
+    photos = json.loads(CONFIG.read_text(encoding="utf-8"))
+    for dest, item in photos.items():
+        src, rotation, center, aspect = item["src"], item["rotate"], tuple(item["center"]), item["aspect"]
         im = ImageOps.exif_transpose(Image.open(src_dir / src))
         if aspect == "cutout":
             # Mantém a transparência e corta as bordas vazias em volta da pessoa

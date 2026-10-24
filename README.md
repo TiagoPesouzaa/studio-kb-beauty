@@ -20,12 +20,12 @@ O projeto separa **conteúdo**, **regras** e **visual**, para que o mesmo códig
 
 ```
 src/
-├── config/site.ts         # identidade do negócio: nome, contatos, região
+├── config/site.ts         # identidade do negócio: nome, contatos, região, tema
 ├── data/                  # conteúdo editável
 │   ├── services.ts        #   catálogo de serviços por categoria
-│   └── content.ts         #   galeria, sobre, depoimentos e FAQ
+│   └── content.ts         #   textos de todas as seções, galeria, sobre, FAQ
 ├── types/index.ts         # contratos (tipos) do conteúdo
-├── lib/whatsapp.ts        # funções puras: links de WhatsApp e Instagram
+├── lib/links.ts           # funções puras: links de WhatsApp e Instagram
 ├── styles/global.css      # design tokens (cores e fontes) do Tailwind
 ├── layouts/
 │   └── BaseLayout.astro   # <head>: SEO, Open Graph, fontes, JSON-LD
@@ -70,9 +70,18 @@ Sem foto, o site mostra um espaço reservado com a mesma proporção.
 
 ## Reaproveitando como template
 
-1. Copie o projeto.
-2. Troque `src/config/site.ts` e os arquivos de `src/data/`.
-3. Ajuste as cores e fontes no bloco `@theme` de `src/styles/global.css`.
+A regra do projeto: **componentes não têm conteúdo de cliente**. Nenhum texto, cor ou foto do negócio fica dentro de `src/components`. Por isso um site novo nasce trocando só estes arquivos:
+
+| Arquivo | O que trocar |
+| --- | --- |
+| `src/config/site.ts` | Nome, contatos, região, tipo de negócio, cor da barra e fontes |
+| `src/data/content.ts` | Textos das seções, menu, galeria, sobre, FAQ |
+| `src/data/services.ts` | Serviços ou produtos |
+| `src/styles/global.css` | Bloco `@theme`: cores e fontes |
+| `scripts/photos.json` | Mapeamento das fotos |
+| `wrangler.jsonc` | Nome do projeto na Cloudflare |
+
+As cores têm nomes semânticos (`primary`, `surface`, `ink`, `muted`...), e não nomes de cor. Assim `bg-primary` continua fazendo sentido quando o primary de outro cliente for azul.
 
 ## Pendências
 

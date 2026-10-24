@@ -1,0 +1,18 @@
+{
+  "servicos/fio-a-fio.webp": {"src": "fio-a-fio/foto-21.jpeg", "rotate": 180, "center": [0.62, 0.36], "aspect": "square"},
+  "servicos/volume-brasileiro.webp": {"src": "volume-brasileiro/foto-15.jpeg", "rotate": 0, "center": [0.5, 0.45], "aspect": "square"},
+  "servicos/volume-kb-beauty.webp": {"src": "volume-kb-beauty/foto-19.jpeg", "rotate": 0, "center": [0.5, 0.42], "aspect": "square"},
+  "servicos/volume-4d.webp": {"src": "volume-4d/foto-20.jpeg", "rotate": 0, "center": [0.5, 0.5], "aspect": "square"},
+  "servicos/lash-lifting.webp": {"src": "lash-lifting/foto-18.jpeg", "rotate": 0, "center": [0.5, 0.5], "aspect": "square"},
+  "servicos/brow-lamination.webp": {"src": "brow-lamination/foto-03.jpeg", "rotate": 0, "center": [0.5, 0.4], "aspect": "square"},
+  "servicos/spa-sobrancelhas.webp": {"src": "spa-sobrancelhas/foto-23.jpeg", "rotate": 0, "center": [0.6, 0.45], "aspect": "square"},
+  "servicos/microblading.webp": {"src": "microblading/foto-10.jpeg", "rotate": 0, "center": [0.5, 0.45], "aspect": "square"},
+  "galeria/01.webp": {"src": "microblading/foto-11.jpeg", "rotate": 0, "center": [0.5, 0.5], "aspect": "portrait"},
+  "galeria/02.webp": {"src": "_a-confirmar/foto-06.jpeg", "rotate": 0, "center": [0.5, 0.5], "aspect": "portrait"},
+  "galeria/03.webp": {"src": "_a-confirmar/foto-13.jpeg", "rotate": 180, "center": [0.5, 0.5], "aspect": "portrait"},
+  "galeria/04.webp": {"src": "_a-confirmar/foto-08.jpeg", "rotate": 180, "center": [0.5, 0.5], "aspect": "portrait"},
+  "galeria/05.webp": {"src": "_a-confirmar/foto-05.jpeg", "rotate": 0, "center": [0.5, 0.5], "aspect": "portrait"},
+  "galeria/06.webp": {"src": "_a-confirmar/foto-17.jpeg", "rotate": -90, "center": [0.5, 0.5], "aspect": "portrait"},
+  "hero/kb.webp": {"src": "perfil/foto-01-recorte.png", "rotate": 0, "center": [0.5, 0.5], "aspect": "cutout"},
+  "sobre/perfil.webp": {"src": "perfil/foto-04.jpeg", "rotate": 0, "center": [0.55, 0.42], "aspect": "portrait"}
+}

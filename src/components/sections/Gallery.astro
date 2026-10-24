@@ -3,14 +3,14 @@ import Container from "@/components/ui/Container.astro";
 import SectionHeading from "@/components/ui/SectionHeading.astro";
 import Photo from "@/components/ui/Photo.astro";
 import Button from "@/components/ui/Button.astro";
-import { gallery } from "@/data/content";
-import { instagramLink } from "@/lib/whatsapp";
+import { gallery, gallerySection } from "@/data/content";
+import { instagramLink } from "@/lib/links";
 import { siteConfig } from "@/config/site";
 ---
 
-<section id="galeria" aria-labelledby="galeria-titulo" class="bg-blush/50 py-20 md:py-28">
+<section id="galeria" aria-labelledby="galeria-titulo" class="bg-surface/50 py-20 md:py-28">
   <Container>
-    <SectionHeading id="galeria-titulo" title="Galeria" subtitle="Alguns resultados do estúdio." />
+    <SectionHeading id="galeria-titulo" title={gallerySection.title} subtitle={gallerySection.subtitle} />
 
     <ul class="grid grid-cols-2 gap-3 md:grid-cols-3 md:gap-5">
       {gallery.map((image) => (

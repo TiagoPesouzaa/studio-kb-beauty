@@ -5,7 +5,8 @@
  */
 import "@/styles/global.css";
 import { siteConfig } from "@/config/site";
-import { whatsappLink, instagramLink } from "@/lib/whatsapp";
+import { whatsappLink, instagramLink } from "@/lib/links";
+import { hero } from "@/data/content";
 
 type Props = {
   title?: string;
@@ -20,7 +21,7 @@ const canonical = new URL(Astro.url.pathname, siteConfig.url).href;
 // JSON-LD: ajuda o Google a entender que é um negócio de beleza
 const structuredData = {
   "@context": "https://schema.org",
-  "@type": "BeautySalon",
+  "@type": siteConfig.schemaType,
   name: siteConfig.name,
   description: siteConfig.description,
   url: siteConfig.url,
@@ -38,9 +39,9 @@ const structuredData = {
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
-    <meta name="theme-color" content="#ffe6f2" />
+    <meta name="theme-color" content={siteConfig.theme.color} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="preload" as="image" href="/images/hero/kb.webp" type="image/webp" />
+    <link rel="preload" as="image" href={hero.image.src} type="image/webp" />
 
     <!-- Open Graph: como o link aparece quando compartilhado no WhatsApp/Instagram -->
     <meta property="og:type" content="website" />
@@ -54,7 +55,7 @@ const structuredData = {
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Montserrat:wght@400;500;600&display=swap"
+      href={siteConfig.theme.fontsHref}
     />
 
     <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
