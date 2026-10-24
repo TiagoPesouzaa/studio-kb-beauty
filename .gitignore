@@ -22,3 +22,6 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# fotos originais (pesadas); o site usa só as versões otimizadas em public/images
+fotos/

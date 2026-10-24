@@ -56,12 +56,7 @@ export const serviceCategories: ServiceCategory[] = [
         name: "Microblading",
         description: "Micropigmentação fio a fio, com acabamento natural.",
       },
-      {
-        slug: "micro-shading",
-        name: "Micro Shading",
-        description: "Micropigmentação com efeito esfumado.",
-        comingSoon: true,
-      },
+      // Micro Shadow: adicionar quando houver fotos
     ],
   },
 ];
