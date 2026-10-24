@@ -38,7 +38,8 @@ src/
 │   │   ├── Container.astro
 │   │   ├── Lightbox.astro #   abre a foto em tela cheia
 │   │   ├── Photo.astro    #   foto ou espaço reservado (zoomable abre no Lightbox)
-│   │   └── SectionHeading.astro
+│   │   ├── SectionHeading.astro
+│   │   └── WhatsAppIcon.astro
 │   └── sections/          # seções da página, uma por arquivo
 └── pages/index.astro      # monta a página com as seções
 public/images/             # fotos (servicos/, galeria/, sobre/)

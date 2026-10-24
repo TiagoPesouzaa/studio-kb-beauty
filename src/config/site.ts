@@ -30,9 +30,9 @@ export const siteConfig = {
     instagram: "desiigner__kb",
   },
 
-  /** Crédito discreto no rodapé, que também leva clientes até você. */
+  /** Crédito discreto no rodapé: leva para o WhatsApp de quem fez o site. */
   credits: {
     label: "Tiago Pereira",
-    url: "https://github.com/TiagoPesouzaa",
+    whatsapp: "5511972793305",
   },
 } as const;

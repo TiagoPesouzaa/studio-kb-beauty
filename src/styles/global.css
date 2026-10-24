@@ -15,7 +15,7 @@
   --color-primary: #d6106f; /* cor principal: botões e links (contraste 5:1 com branco) */
   --color-primary-strong: #b00c5b; /* hover dos botões */
   --color-ink: #2a1020; /* texto */
-  --color-muted: #7a4a62; /* texto secundário */
+  --color-muted: #5e3a4b; /* texto secundário */
 
   --font-display: "Cormorant Garamond", "Georgia", serif;
   --font-sans: "Montserrat", "Segoe UI", system-ui, sans-serif;
@@ -30,6 +30,9 @@
 
   body {
     @apply bg-white font-sans text-ink antialiased;
+    /* Texto base de 17px: mais confortável para quem tem a vista cansada */
+    font-size: 1.0625rem;
+    line-height: 1.65;
   }
 
   :focus-visible {

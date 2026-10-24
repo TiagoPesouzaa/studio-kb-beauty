@@ -17,6 +17,12 @@ export function whatsappLinkForService(serviceName: string): string {
   return whatsappLink(`Oi! Vim pelo site e quero agendar ${serviceName}.`);
 }
 
+/** WhatsApp de quem fez o site, já com a mensagem de quem quer um site também. */
+export function creditsLink(): string {
+  const message = `Oi, Tiago! Vi o site do ${siteConfig.name} e quero um site também.`;
+  return `https://wa.me/${siteConfig.credits.whatsapp}?text=${encodeURIComponent(message)}`;
+}
+
 export function instagramLink(): string {
   return `https://instagram.com/${siteConfig.contact.instagram}`;
 }

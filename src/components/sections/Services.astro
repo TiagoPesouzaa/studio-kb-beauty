@@ -2,98 +2,74 @@
 import Container from "@/components/ui/Container.astro";
 import SectionHeading from "@/components/ui/SectionHeading.astro";
 import Photo from "@/components/ui/Photo.astro";
+import Button from "@/components/ui/Button.astro";
 import { serviceCategories } from "@/data/services";
 import { whatsappLinkForService } from "@/lib/links";
-import { servicesSection } from "@/data/content";
+import { cta, servicesSection } from "@/data/content";
 ---
 
+<!--
+  Todas as categorias ficam visíveis, uma embaixo da outra (sem abas):
+  quem tem menos familiaridade com sites não corre o risco de não ver uma categoria.
+  Os atalhos no topo mostram logo de cara tudo o que existe.
+-->
 <section id="servicos" aria-labelledby="servicos-titulo" class="py-20 md:py-28">
   <Container>
-    <SectionHeading
-      id="servicos-titulo"
-      title={servicesSection.title}
-      subtitle={servicesSection.subtitle}
-    />
+    <SectionHeading id="servicos-titulo" title={servicesSection.title} subtitle={servicesSection.subtitle} />
 
-    <!-- Abas: no celular, uma categoria por vez deixa a lista curta -->
-    <div role="tablist" aria-label="Categorias de serviço" class="mb-10 inline-flex rounded-full bg-surface p-1">
-      {serviceCategories.map((category, index) => (
-        <button
-          type="button"
-          role="tab"
-          id={`tab-${category.id}`}
-          aria-controls={`painel-${category.id}`}
-          aria-selected={index === 0 ? "true" : "false"}
-          tabindex={index === 0 ? 0 : -1}
-          class="rounded-full px-6 py-2.5 text-[0.95rem] font-medium text-muted transition-colors aria-selected:bg-white aria-selected:text-primary aria-selected:shadow-sm"
+    <nav aria-label="Categorias de serviço" class="-mt-4 mb-14 flex flex-wrap gap-3">
+      {serviceCategories.map((category) => (
+        <a
+          href={`#${category.id}`}
+          class="inline-flex min-h-12 items-center gap-2 rounded-full bg-surface px-6 font-medium text-primary-strong transition-colors hover:bg-surface-strong"
         >
           {category.title}
-        </button>
+          <span aria-hidden="true">↓</span>
+        </a>
+      ))}
+    </nav>
+
+    <div class="space-y-20">
+      {serviceCategories.map((category) => (
+        <div id={category.id} aria-labelledby={`${category.id}-titulo`}>
+          <h3
+            id={`${category.id}-titulo`}
+            class="mb-10 border-b border-surface-strong pb-3 font-display text-3xl font-semibold md:text-4xl"
+          >
+            {category.title}
+          </h3>
+
+          <ul class="grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
+            {category.services.map((service) => (
+              <li class="flex gap-5 sm:flex-col">
+                <div class="w-28 shrink-0 sm:w-full">
+                  <Photo src={service.image} alt={service.name} aspect="square" zoomable />
+                </div>
+                <div class="flex flex-1 flex-col">
+                  <h4 class="font-display text-2xl leading-snug font-semibold">
+                    {service.name}
+                    {service.comingSoon && (
+                      <span class="ml-2 align-middle font-sans text-sm font-medium text-primary">Em breve</span>
+                    )}
+                  </h4>
+                  {service.description && <p class="mt-2 text-muted">{service.description}</p>}
+                  {!service.comingSoon && (
+                    <Button
+                      href={whatsappLinkForService(service.name)}
+                      variant="outline"
+                      whatsapp
+                      ariaLabel={`${cta.shortLabel} ${service.name} pelo WhatsApp`}
+                      class="mt-4 self-start"
+                    >
+                      {cta.shortLabel}
+                    </Button>
+                  )}
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
       ))}
     </div>
-
-    {serviceCategories.map((category, index) => (
-      <div
-        role="tabpanel"
-        id={`painel-${category.id}`}
-        aria-labelledby={`tab-${category.id}`}
-        hidden={index !== 0}
-      >
-        <ul class="grid gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
-          {category.services.map((service) => (
-            <li class="flex gap-5 sm:flex-col">
-              <div class="w-24 shrink-0 sm:w-full">
-                <Photo src={service.image} alt={service.name} aspect="square" zoomable />
-              </div>
-              <div class="flex flex-1 flex-col">
-                <h3 class="font-display text-2xl leading-snug">
-                  {service.name}
-                  {service.comingSoon && (
-                    <span class="ml-2 align-middle font-sans text-xs font-medium text-primary">Em breve</span>
-                  )}
-                </h3>
-                {service.description && <p class="mt-1.5 text-muted">{service.description}</p>}
-                {!service.comingSoon && (
-                  <a
-                    href={whatsappLinkForService(service.name)}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="mt-3 self-start text-[0.95rem] font-medium text-primary underline decoration-accent underline-offset-4 hover:decoration-primary"
-                  >
-                    Agendar {service.name}
-                  </a>
-                )}
-              </div>
-            </li>
-          ))}
-        </ul>
-      </div>
-    ))}
   </Container>
 </section>
-
-<script>
-  // Troca de aba com clique e com as setas do teclado (padrão de acessibilidade WAI-ARIA)
-  const tabs = Array.from(document.querySelectorAll<HTMLButtonElement>('#servicos [role="tab"]'));
-
-  function selectTab(selected: HTMLButtonElement) {
-    for (const tab of tabs) {
-      const isSelected = tab === selected;
-      tab.setAttribute("aria-selected", String(isSelected));
-      tab.tabIndex = isSelected ? 0 : -1;
-      const panel = document.getElementById(tab.getAttribute("aria-controls")!);
-      if (panel) panel.hidden = !isSelected;
-    }
-  }
-
-  tabs.forEach((tab, index) => {
-    tab.addEventListener("click", () => selectTab(tab));
-    tab.addEventListener("keydown", (event) => {
-      if (event.key !== "ArrowRight" && event.key !== "ArrowLeft") return;
-      const step = event.key === "ArrowRight" ? 1 : -1;
-      const next = tabs[(index + step + tabs.length) % tabs.length];
-      selectTab(next);
-      next.focus();
-    });
-  });
-</script>

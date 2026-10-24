@@ -1,32 +1,48 @@
 ---
 /**
- * Botão-link reutilizável. Variantes:
- * - primary: ação principal (agendar)
- * - outline: ação secundária
+ * Botão-link reutilizável.
+ * - variant: "primary" (ação principal) ou "outline" (secundária)
+ * - whatsapp: mostra o ícone do WhatsApp e já abre em nova aba
+ * - ariaLabel: texto completo para leitores de tela quando o rótulo visível é curto
  */
+import WhatsAppIcon from "@/components/ui/WhatsAppIcon.astro";
+
 type Props = {
   href: string;
   variant?: "primary" | "outline";
   external?: boolean;
+  whatsapp?: boolean;
+  ariaLabel?: string;
   class?: string;
 };
 
-const { href, variant = "primary", external = false, class: className } = Astro.props;
+const {
+  href,
+  variant = "primary",
+  external = false,
+  whatsapp = false,
+  ariaLabel,
+  class: className,
+} = Astro.props;
+
+const opensNewTab = external || whatsapp;
 
 const variants = {
   primary: "bg-primary text-white hover:bg-primary-strong",
-  outline: "border border-primary text-primary hover:bg-surface",
+  outline: "border-2 border-primary text-primary hover:bg-surface",
 };
 ---
 
 <a
   href={href}
+  aria-label={ariaLabel}
   class:list={[
-    "inline-flex min-h-12 items-center justify-center gap-2 rounded-full px-6 text-[0.95rem] font-medium tracking-wide transition-colors",
+    "inline-flex min-h-12 items-center justify-center gap-2 rounded-full px-6 text-base font-medium transition-colors",
     variants[variant],
     className,
   ]}
-  {...external && { target: "_blank", rel: "noopener noreferrer" }}
+  {...opensNewTab && { target: "_blank", rel: "noopener noreferrer" }}
 >
+  {whatsapp && <WhatsAppIcon />}
   <slot />
 </a>

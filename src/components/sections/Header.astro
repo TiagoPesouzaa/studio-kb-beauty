@@ -3,6 +3,7 @@ import Container from "@/components/ui/Container.astro";
 import { siteConfig } from "@/config/site";
 import { whatsappLink } from "@/lib/links";
 import { cta, navigation } from "@/data/content";
+import WhatsAppIcon from "@/components/ui/WhatsAppIcon.astro";
 
 ---
 
@@ -11,7 +12,7 @@ import { cta, navigation } from "@/data/content";
     <a href="#inicio" class="font-display text-xl tracking-wide">{siteConfig.shortName}</a>
 
     <nav aria-label="Seções do site" class="hidden md:block">
-      <ul class="flex gap-8 text-[0.95rem] text-muted">
+      <ul class="flex gap-8 text-base text-muted">
         {navigation.map((link) => (
           <li><a href={link.href} class="transition-colors hover:text-primary">{link.label}</a></li>
         ))}
@@ -22,8 +23,9 @@ import { cta, navigation } from "@/data/content";
       href={whatsappLink()}
       target="_blank"
       rel="noopener noreferrer"
-      class="rounded-full border border-primary px-4 py-1.5 text-sm font-medium text-primary transition-colors hover:bg-primary hover:text-white"
+      class="inline-flex min-h-11 items-center gap-1.5 rounded-full border-2 border-primary px-4 text-sm font-medium text-primary transition-colors hover:bg-primary hover:text-white"
     >
+      <WhatsAppIcon class="size-4" />
       {cta.shortLabel}
     </a>
   </Container>
