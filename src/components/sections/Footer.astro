@@ -31,9 +31,9 @@ const year = new Date().getFullYear();
       </dl>
     </div>
 
-    <div class="mt-16 flex flex-col gap-2 border-t border-white/10 pt-6 text-sm text-white/50 sm:flex-row sm:justify-between">
-      <p>© {year} {siteConfig.name}</p>
-      <p>Site por <a href={creditsLink()} target="_blank" rel="noopener noreferrer" class="underline underline-offset-4 hover:text-white">{siteConfig.credits.label}</a></p>
+    <div class="mt-16 flex flex-col gap-2 border-t border-white/10 pt-6 text-sm text-white/50 sm:flex-row sm:justify-between sm:gap-8">
+      <p class="max-w-xl">© {year} {siteConfig.name}. {footer.rights}</p>
+      <p class="shrink-0">Site por <a href={creditsLink()} target="_blank" rel="noopener noreferrer" class="underline underline-offset-4 hover:text-white">{siteConfig.credits.label}</a></p>
     </div>
   </Container>
 </footer>

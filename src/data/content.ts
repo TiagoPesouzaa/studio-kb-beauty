@@ -111,4 +111,6 @@ export const faq: FaqItem[] = [
 
 export const footer = {
   title: "Vamos cuidar do seu olhar?",
+  /** Aviso de direitos autorais, exibido ao lado do © */
+  rights: "Todos os direitos reservados. As fotos são de autoria do estúdio e não podem ser usadas sem autorização.",
 };
