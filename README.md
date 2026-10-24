@@ -57,7 +57,7 @@ public/images/             # fotos (servicos/, galeria/, sobre/)
 python scripts/optimize_photos.py fotos
 ```
 
-O mapeamento de qual foto vai para onde fica no dicionário `PHOTOS` do script. Para trocar uma foto, ajuste ali e rode de novo. Depois, use o caminho gerado no arquivo de dados:
+O mapeamento de qual foto vai para onde fica em `scripts/photos.json`. Para trocar uma foto, ajuste ali e rode de novo. Depois, use o caminho gerado no arquivo de dados:
 
 ```ts
 // src/data/services.ts
