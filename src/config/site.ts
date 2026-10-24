@@ -8,7 +8,7 @@ export const siteConfig = {
   tagline: "Cílios e sobrancelhas feitos sob medida para o seu olhar.",
   description:
     "Studio KB Beauty: extensão de cílios, lash lifting, design de sobrancelhas, brow lamination e microblading na Zona Leste de São Paulo. Agendamento pelo WhatsApp.",
-  url: "https://studio-kb-beauty.tiago22-p-s.workers.dev", // TODO: trocar quando tiver domínio próprio
+  url: "https://studiokbbeauty.com.br",
   locale: "pt_BR",
   /** Tipo do negócio para o Google (schema.org): BeautySalon, Restaurant, BarberShop... */
   schemaType: "BeautySalon",

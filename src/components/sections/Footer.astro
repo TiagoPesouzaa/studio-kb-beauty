@@ -4,6 +4,8 @@ import Button from "@/components/ui/Button.astro";
 import { siteConfig } from "@/config/site";
 import { creditsLink, instagramLink, whatsappLink } from "@/lib/links";
 import { cta, footer } from "@/data/content";
+import WhatsAppIcon from "@/components/ui/WhatsAppIcon.astro";
+import InstagramIcon from "@/components/ui/InstagramIcon.astro";
 
 const year = new Date().getFullYear();
 ---
@@ -14,17 +16,17 @@ const year = new Date().getFullYear();
       <div>
         <p class="font-display text-4xl leading-tight md:text-5xl">{footer.title}</p>
         <p class="mt-4 max-w-md text-white/70">{siteConfig.region}. {siteConfig.regionNote}</p>
-        <Button href={whatsappLink()} whatsapp class="mt-8">{cta.label}</Button>
+        <Button href={whatsappLink()} icon="whatsapp" class="mt-8">{cta.label}</Button>
       </div>
 
       <dl class="grid gap-6 self-end text-white/80">
         <div>
           <dt class="text-sm text-white/50">WhatsApp</dt>
-          <dd><a href={whatsappLink()} target="_blank" rel="noopener noreferrer" class="hover:text-accent">{siteConfig.contact.whatsappDisplay}</a></dd>
+          <dd><a href={whatsappLink()} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 hover:text-accent"><WhatsAppIcon />{siteConfig.contact.whatsappDisplay}</a></dd>
         </div>
         <div>
           <dt class="text-sm text-white/50">Instagram</dt>
-          <dd><a href={instagramLink()} target="_blank" rel="noopener noreferrer" class="hover:text-accent">@{siteConfig.contact.instagram}</a></dd>
+          <dd><a href={instagramLink()} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 hover:text-accent"><InstagramIcon />@{siteConfig.contact.instagram}</a></dd>
         </div>
       </dl>
     </div>

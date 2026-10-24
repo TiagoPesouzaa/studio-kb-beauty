@@ -94,4 +94,4 @@ As cores têm nomes semânticos (`primary`, `surface`, `ink`, `muted`...), e nã
 - [ ] Descrição das técnicas Divine Bloom 3D e Volume 4D
 - [ ] Texto do "Sobre" escrito por ela
 - [ ] Micro Shadow, quando houver fotos
-- [ ] Domínio próprio (atualizar `siteConfig.url`)
+- [x] Domínio próprio: studiokbbeauty.com.br

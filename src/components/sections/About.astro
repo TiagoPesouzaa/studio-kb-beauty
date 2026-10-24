@@ -1,6 +1,8 @@
 ---
 import Container from "@/components/ui/Container.astro";
 import Photo from "@/components/ui/Photo.astro";
+import Button from "@/components/ui/Button.astro";
+import { instagramLink } from "@/lib/links";
 import { about } from "@/data/content";
 ---
 
@@ -10,6 +12,9 @@ import { about } from "@/data/content";
     <div>
       <h2 id="sobre-titulo" class="font-display text-4xl leading-tight md:text-5xl">{about.title}</h2>
       {about.paragraphs.map((text) => <p class="mt-5 text-lg text-muted">{text}</p>)}
+      <Button href={instagramLink()} variant="outline" icon="instagram" class="mt-8">
+        {about.instagramLabel}
+      </Button>
     </div>
   </Container>
 </section>

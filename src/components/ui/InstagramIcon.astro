@@ -1,0 +1,19 @@
+---
+/** Ícone do Instagram: deixa claro, antes do toque, para onde o link leva. */
+type Props = { class?: string };
+const { class: className = "size-5" } = Astro.props;
+---
+
+<svg
+  viewBox="0 0 24 24"
+  class={className}
+  fill="none"
+  stroke="currentColor"
+  stroke-width="1.8"
+  stroke-linecap="round"
+  aria-hidden="true"
+>
+  <rect x="3" y="3" width="18" height="18" rx="5"></rect>
+  <circle cx="12" cy="12" r="4"></circle>
+  <circle cx="17.5" cy="6.5" r="0.6" fill="currentColor"></circle>
+</svg>

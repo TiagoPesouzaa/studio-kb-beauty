@@ -38,6 +38,7 @@ export const servicesSection = {
 export const gallerySection = {
   title: "Galeria",
   subtitle: "Resultados do estúdio. Deslize para ver mais e toque para ampliar.",
+  instagramLabel: "Ver mais fotos no Instagram",
 };
 
 /** Galeria (retrato 4:5, desliza para o lado), gerada por scripts/optimize_photos.py */
@@ -62,6 +63,7 @@ export const gallery: GalleryImage[] = [
 
 export const about = {
   title: "Sobre o estúdio",
+  instagramLabel: "Acompanhe no Instagram",
   // TODO: trocar por um texto dela, em primeira pessoa (trajetória, cursos, o que ama no trabalho)
   paragraphs: [
     `O ${siteConfig.name} é dedicado a cílios e sobrancelhas: técnicas de extensão, lash lifting, design, brow lamination e micropigmentação.`,

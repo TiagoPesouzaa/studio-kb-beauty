@@ -19,10 +19,11 @@ import { siteConfig } from "@/config/site";
       ))}
     </Carousel>
 
-    <div class="mt-10">
-      <Button href={instagramLink()} variant="outline" external>
-        Mais trabalhos no @{siteConfig.contact.instagram}
+    <div class="mt-10 flex flex-col items-start gap-2">
+      <Button href={instagramLink()} variant="outline" icon="instagram">
+        {gallerySection.instagramLabel}
       </Button>
+      <p class="pl-6 text-sm text-muted">@{siteConfig.contact.instagram}</p>
     </div>
   </Container>
 </section>
