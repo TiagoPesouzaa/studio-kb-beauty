@@ -52,13 +52,15 @@ export const gallery: GalleryImage[] = [
   { src: "/images/galeria/07.webp", alt: "Design com Henna" },
   { src: "/images/galeria/08.webp", alt: "Microblading" },
   { src: "/images/galeria/09.webp", alt: "Volume Fio a Fio" },
-  { src: "/images/galeria/10.webp", alt: "Extensão de cílios" },
+  { src: "/images/galeria/10.webp", alt: "Volume Divine Bloom 3D" },
   { src: "/images/galeria/11.webp", alt: "Volume Brasileiro" },
   { src: "/images/galeria/12.webp", alt: "Extensão de cílios e sobrancelhas" },
   { src: "/images/galeria/13.webp", alt: "Lash Lifting" },
   { src: "/images/galeria/14.webp", alt: "Brow Lamination" },
   { src: "/images/galeria/15.webp", alt: "Extensão de cílios" },
   { src: "/images/galeria/16.webp", alt: "Microblading" },
+  { src: "/images/galeria/17.webp", alt: "Volume Divine Power" },
+  { src: "/images/galeria/18.webp", alt: "Design de Sobrancelhas" },
 ];
 
 export const about = {

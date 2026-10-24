@@ -2,7 +2,7 @@
 
 Site do Studio KB Beauty, estúdio de cílios e sobrancelhas na Zona Leste de São Paulo. Página única, pensada primeiro para o celular e responsiva até o desktop, com agendamento direto pelo WhatsApp.
 
-**Stack:** Astro · Tailwind CSS v4 · TypeScript · deploy na Vercel
+**Stack:** Astro · Tailwind CSS v4 · TypeScript · deploy na Cloudflare
 
 ## Rodando localmente
 
@@ -56,7 +56,7 @@ public/images/             # fotos (servicos/, galeria/, sobre/)
 
 ## Como atualizar o conteúdo
 
-**Fotos:** as originais ficam em `fotos/` (fora do Git, organizadas por procedimento). As versões do site são geradas por um script, que gira, recorta e converte para `.webp`:
+**Fotos:** as originais ficam em `fotos/` (fora do Git, organizadas por procedimento). As versões do site são geradas por um script, que recorta e converte para `.webp`, sempre mantendo a orientação original da foto:
 
 ```bash
 python scripts/optimize_photos.py fotos
@@ -90,7 +90,6 @@ As cores têm nomes semânticos (`primary`, `surface`, `ink`, `muted`...), e nã
 
 ## Pendências
 
-- [ ] Fotos de Divine Bloom 3D, Divine Power e Design de Sobrancelhas
 - [ ] Descrição das técnicas Divine Bloom 3D e Volume 4D
 - [ ] Texto do "Sobre" escrito por ela
 - [ ] Micro Shadow, quando houver fotos

@@ -32,6 +32,7 @@ export const serviceCategories: ServiceCategory[] = [
         slug: "divine-bloom-3d",
         name: "Volume Divine Bloom 3D",
         description: "Manutenção a cada 20 dias.",
+        image: "/images/servicos/divine-bloom-3d.webp",
       },
       {
         slug: "volume-4d",
@@ -43,6 +44,7 @@ export const serviceCategories: ServiceCategory[] = [
         slug: "divine-power",
         name: "Volume Divine Power",
         description: "Técnica de capping que dura mais de 30 dias, sem necessidade de manutenção.",
+        image: "/images/servicos/divine-power.webp",
       },
       {
         slug: "lash-lifting",
@@ -72,6 +74,7 @@ export const serviceCategories: ServiceCategory[] = [
         slug: "design-sobrancelhas",
         name: "Design de Sobrancelhas",
         description: "Desenho pensado para o formato do seu rosto.",
+        image: "/images/servicos/design-sobrancelhas.webp",
       },
       {
         slug: "spa-sobrancelhas",
