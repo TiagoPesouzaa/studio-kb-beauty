@@ -1,0 +1,46 @@
+---
+/**
+ * Visualizador de fotos em tela cheia. Fica uma vez só na página.
+ *
+ * Qualquer elemento com `data-lightbox="<url>"` abre a foto ao ser clicado
+ * (o componente Photo com `zoomable` já faz isso).
+ * Usa <dialog>, nativo do HTML: fecha com Esc, prende o foco e é acessível.
+ */
+---
+
+<dialog
+  id="lightbox"
+  aria-label="Foto ampliada"
+  class="m-auto max-h-none max-w-none bg-transparent p-0 backdrop:bg-ink/90"
+>
+  <form method="dialog">
+    <button
+      type="submit"
+      aria-label="Fechar foto"
+      class="fixed top-4 right-4 z-10 flex size-11 items-center justify-center rounded-full bg-white/90 text-2xl text-ink"
+    >
+      ×
+    </button>
+  </form>
+  <img id="lightbox-image" src="" alt="" class="max-h-[88vh] max-w-[94vw] rounded-xl object-contain" />
+</dialog>
+
+<script>
+  const dialog = document.getElementById("lightbox") as HTMLDialogElement;
+  const image = document.getElementById("lightbox-image") as HTMLImageElement;
+
+  // Delegação de eventos: um único listener na página atende todas as fotos,
+  // inclusive as que forem adicionadas depois.
+  document.addEventListener("click", (event) => {
+    const trigger = (event.target as HTMLElement).closest<HTMLElement>("[data-lightbox]");
+    if (!trigger) return;
+    image.src = trigger.dataset.lightbox!;
+    image.alt = trigger.dataset.alt ?? "";
+    dialog.showModal();
+  });
+
+  // Clique fora da foto (no fundo escuro) também fecha
+  dialog.addEventListener("click", (event) => {
+    if (event.target === dialog) dialog.close();
+  });
+</script>

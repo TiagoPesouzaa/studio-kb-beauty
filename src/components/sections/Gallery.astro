@@ -2,6 +2,7 @@
 import Container from "@/components/ui/Container.astro";
 import SectionHeading from "@/components/ui/SectionHeading.astro";
 import Photo from "@/components/ui/Photo.astro";
+import Carousel from "@/components/ui/Carousel.astro";
 import Button from "@/components/ui/Button.astro";
 import { gallery, gallerySection } from "@/data/content";
 import { instagramLink } from "@/lib/links";
@@ -12,11 +13,11 @@ import { siteConfig } from "@/config/site";
   <Container>
     <SectionHeading id="galeria-titulo" title={gallerySection.title} subtitle={gallerySection.subtitle} />
 
-    <ul class="grid grid-cols-2 gap-3 md:grid-cols-3 md:gap-5">
+    <Carousel label={gallerySection.title}>
       {gallery.map((image) => (
-        <li><Photo src={image.src} alt={image.alt} /></li>
+        <li><Photo src={image.src} alt={image.alt} zoomable /></li>
       ))}
-    </ul>
+    </Carousel>
 
     <div class="mt-10">
       <Button href={instagramLink()} variant="outline" external>

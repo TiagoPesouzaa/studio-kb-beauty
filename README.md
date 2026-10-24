@@ -25,15 +25,19 @@ src/
 │   ├── services.ts        #   catálogo de serviços por categoria
 │   └── content.ts         #   textos de todas as seções, galeria, sobre, FAQ
 ├── types/index.ts         # contratos (tipos) do conteúdo
-├── lib/links.ts           # funções puras: links de WhatsApp e Instagram
+├── lib/
+│   ├── links.ts           # funções puras: links de WhatsApp e Instagram
+│   └── images.ts          # convenção das fotos (miniatura x versão inteira)
 ├── styles/global.css      # design tokens (cores e fontes) do Tailwind
 ├── layouts/
 │   └── BaseLayout.astro   # <head>: SEO, Open Graph, fontes, JSON-LD
 ├── components/
 │   ├── ui/                # peças genéricas e reutilizáveis
 │   │   ├── Button.astro
+│   │   ├── Carousel.astro #   lista que desliza para o lado
 │   │   ├── Container.astro
-│   │   ├── Photo.astro    #   foto ou espaço reservado
+│   │   ├── Lightbox.astro #   abre a foto em tela cheia
+│   │   ├── Photo.astro    #   foto ou espaço reservado (zoomable abre no Lightbox)
 │   │   └── SectionHeading.astro
 │   └── sections/          # seções da página, uma por arquivo
 └── pages/index.astro      # monta a página com as seções
@@ -57,7 +61,7 @@ public/images/             # fotos (servicos/, galeria/, sobre/)
 python scripts/optimize_photos.py fotos
 ```
 
-O mapeamento de qual foto vai para onde fica em `scripts/photos.json`. Para trocar uma foto, ajuste ali e rode de novo. Depois, use o caminho gerado no arquivo de dados:
+O mapeamento de qual foto vai para onde fica em `scripts/photos.json`. Para trocar uma foto, ajuste ali e rode de novo. Cada foto gera duas versões: a miniatura recortada (`public/images/...`) e a inteira, que abre ao tocar (`public/images/full/...`). Depois, use o caminho gerado no arquivo de dados:
 
 ```ts
 // src/data/services.ts
@@ -85,7 +89,7 @@ As cores têm nomes semânticos (`primary`, `surface`, `ink`, `muted`...), e nã
 
 ## Pendências
 
-- [ ] Fotos de Divine Bloom 3D, Divine Power, Design com Henna e Design de Sobrancelhas
+- [ ] Fotos de Divine Bloom 3D, Divine Power e Design de Sobrancelhas
 - [ ] Descrição das técnicas Divine Bloom 3D e Volume 4D
 - [ ] Texto do "Sobre" escrito por ela
 - [ ] Micro Shadow, quando houver fotos

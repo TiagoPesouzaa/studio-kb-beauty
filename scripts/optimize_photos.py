@@ -10,6 +10,9 @@ para outro, só o JSON). Cada entrada:
 - center: centro do recorte, em fração da largura e da altura
 - aspect: "square" (1:1), "portrait" (4:5) ou "cutout" (recorte com fundo transparente)
 
+Para cada foto (menos recortes) também sai uma versão inteira, sem corte, em
+public/images/full/<mesmo caminho>: é a que abre em tela cheia quando a pessoa toca na foto.
+
 As originais ficam fora do Git (pasta fotos/). Este script é a "receita":
 se uma foto mudar, é só rodar de novo.
 
@@ -28,6 +31,7 @@ CONFIG = Path(__file__).resolve().parent / "photos.json"
 
 SIZES = {"square": (800, 800), "portrait": (800, 1000)}
 CUTOUT_HEIGHT = 1000
+FULL_MAX_SIDE = 1400
 
 
 def crop_to_ratio(im: Image.Image, ratio: float, center: tuple[float, float]) -> Image.Image:
@@ -43,26 +47,43 @@ def crop_to_ratio(im: Image.Image, ratio: float, center: tuple[float, float]) ->
     return im.crop((left, top, left + cw, top + ch))
 
 
+def save(im: Image.Image, dest: Path) -> None:
+    dest.parent.mkdir(parents=True, exist_ok=True)
+    im.save(dest, "WEBP", quality=80, method=6)
+    print(f"{dest.relative_to(OUT).as_posix():40} {dest.stat().st_size // 1024:>4} KB")
+
+
+def make_cutout(im: Image.Image) -> Image.Image:
+    """Mantém a transparência e corta as bordas vazias em volta da pessoa."""
+    im = im.convert("RGBA")
+    im = im.crop(im.getchannel("A").getbbox())
+    return im.resize((round(im.width * CUTOUT_HEIGHT / im.height), CUTOUT_HEIGHT), Image.Resampling.LANCZOS)
+
+
+def make_full(im: Image.Image) -> Image.Image:
+    """Foto inteira, sem recorte, para abrir em tela cheia."""
+    im = im.copy()
+    im.thumbnail((FULL_MAX_SIDE, FULL_MAX_SIDE), Image.Resampling.LANCZOS)
+    return im
+
+
 def main(src_dir: Path) -> None:
     photos = json.loads(CONFIG.read_text(encoding="utf-8"))
     for dest, item in photos.items():
-        src, rotation, center, aspect = item["src"], item["rotate"], tuple(item["center"]), item["aspect"]
-        im = ImageOps.exif_transpose(Image.open(src_dir / src))
-        if aspect == "cutout":
-            # Mantém a transparência e corta as bordas vazias em volta da pessoa
-            im = im.convert("RGBA")
-            im = im.crop(im.getchannel("A").getbbox())
-            im = im.resize((round(im.width * CUTOUT_HEIGHT / im.height), CUTOUT_HEIGHT), Image.Resampling.LANCZOS)
-        else:
-            im = im.convert("RGB")
-            if rotation:
-                im = im.rotate(rotation, expand=True)
-            size = SIZES[aspect]
-            im = crop_to_ratio(im, size[0] / size[1], center).resize(size, Image.Resampling.LANCZOS)
-        out = OUT / dest
-        out.parent.mkdir(parents=True, exist_ok=True)
-        im.save(out, "WEBP", quality=80, method=6)
-        print(f"{dest:40} {out.stat().st_size // 1024:>4} KB")
+        im = ImageOps.exif_transpose(Image.open(src_dir / item["src"]))
+
+        if item["aspect"] == "cutout":
+            save(make_cutout(im), OUT / dest)
+            continue
+
+        im = im.convert("RGB")
+        if item["rotate"]:
+            im = im.rotate(item["rotate"], expand=True)
+        size = SIZES[item["aspect"]]
+        thumb = crop_to_ratio(im, size[0] / size[1], tuple(item["center"])).resize(size, Image.Resampling.LANCZOS)
+        save(thumb, OUT / dest)
+        # Versão inteira em images/full/<mesmo caminho>, usada ao tocar na foto
+        save(make_full(im), OUT / "full" / dest)
 
 
 if __name__ == "__main__":

@@ -37,17 +37,27 @@ export const servicesSection = {
 
 export const gallerySection = {
   title: "Galeria",
-  subtitle: "Alguns resultados do estúdio.",
+  subtitle: "Resultados do estúdio. Deslize para ver mais e toque para ampliar.",
 };
 
-/** Galeria (fotos em retrato 4:5), geradas por scripts/optimize_photos.py */
+/** Galeria (retrato 4:5, desliza para o lado), gerada por scripts/optimize_photos.py */
 export const gallery: GalleryImage[] = [
   { src: "/images/galeria/01.webp", alt: "Microblading: antes e depois" },
-  { src: "/images/galeria/02.webp", alt: "Extensão de cílios com volume" },
-  { src: "/images/galeria/03.webp", alt: "Cílios e sobrancelhas, resultado finalizado" },
-  { src: "/images/galeria/04.webp", alt: "Cílios e sobrancelhas, resultado finalizado" },
-  { src: "/images/galeria/05.webp", alt: "Design de sobrancelhas em duas clientes" },
-  { src: "/images/galeria/06.webp", alt: "Design de sobrancelhas, resultado finalizado" },
+  { src: "/images/galeria/02.webp", alt: "Volume KB Beauty" },
+  { src: "/images/galeria/03.webp", alt: "Volume KB Beauty" },
+  { src: "/images/galeria/04.webp", alt: "Volume 4D" },
+  { src: "/images/galeria/05.webp", alt: "Volume Brasileiro" },
+  { src: "/images/galeria/06.webp", alt: "Volume Fio a Fio e Brow Lamination" },
+  { src: "/images/galeria/07.webp", alt: "Design com Henna" },
+  { src: "/images/galeria/08.webp", alt: "Microblading" },
+  { src: "/images/galeria/09.webp", alt: "Volume Fio a Fio" },
+  { src: "/images/galeria/10.webp", alt: "Extensão de cílios" },
+  { src: "/images/galeria/11.webp", alt: "Volume Brasileiro" },
+  { src: "/images/galeria/12.webp", alt: "Extensão de cílios e sobrancelhas" },
+  { src: "/images/galeria/13.webp", alt: "Lash Lifting" },
+  { src: "/images/galeria/14.webp", alt: "Brow Lamination" },
+  { src: "/images/galeria/15.webp", alt: "Extensão de cílios" },
+  { src: "/images/galeria/16.webp", alt: "Microblading" },
 ];
 
 export const about = {

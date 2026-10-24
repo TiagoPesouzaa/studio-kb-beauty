@@ -66,6 +66,7 @@ export const serviceCategories: ServiceCategory[] = [
         slug: "design-com-henna",
         name: "Design com Henna",
         description: "Desenho personalizado com aplicação de henna.",
+        image: "/images/servicos/design-com-henna.webp",
       },
       {
         slug: "design-sobrancelhas",
