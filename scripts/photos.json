@@ -1,4 +1,5 @@
 {
+  "social.jpg": {"src": "perfil/foto-01-recorte.png", "aspect": "social", "background": "#ffe6f2", "arch": "#ffc2df"},
   "hero/kb.webp": {"src": "perfil/foto-01-recorte.png", "rotate": 0, "center": [0.5, 0.5], "aspect": "cutout"},
   "sobre/perfil.webp": {"src": "perfil/foto-04.jpeg", "rotate": 0, "center": [0.55, 0.42], "aspect": "portrait"},
   "servicos/fio-a-fio.webp": {"src": "fio-a-fio/foto-21.jpeg", "rotate": 0, "center": [0.38, 0.64], "aspect": "square"},

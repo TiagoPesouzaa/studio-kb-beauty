@@ -21,6 +21,14 @@ export const siteConfig = {
       "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Montserrat:wght@400;500;600&display=swap",
   },
 
+  /** Imagem que aparece ao compartilhar o link e que o Google pode usar na busca (gerada por scripts/optimize_photos.py) */
+  socialImage: {
+    src: "/images/social.jpg",
+    alt: "Studio KB Beauty: cílios e sobrancelhas",
+    width: 1200,
+    height: 630,
+  },
+
   region: "Zona Leste de São Paulo",
   regionNote: "O endereço é enviado no momento do agendamento.",
 

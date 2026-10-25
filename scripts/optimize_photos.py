@@ -8,7 +8,9 @@ para outro, só o JSON). Cada entrada:
     "destino.webp": {"src": "pasta/foto.jpeg", "rotate": 0, "center": [0.5, 0.5], "aspect": "square"}
 - rotate: graus no sentido anti-horário (180 desvira foto de cabeça para baixo)
 - center: centro do recorte, em fração da largura e da altura
-- aspect: "square" (1:1), "portrait" (4:5) ou "cutout" (recorte com fundo transparente)
+- aspect: "square" (1:1), "portrait" (4:5), "cutout" (recorte com fundo transparente)
+  ou "social" (1200x630, a imagem que aparece ao compartilhar o link e no Google)
+- background / arch (só no "social" com recorte): cor do fundo e do arco atrás da pessoa
 
 Para cada foto (menos recortes) também sai uma versão inteira, sem corte, em
 public/images/full/<mesmo caminho>: é a que abre em tela cheia quando a pessoa toca na foto.
@@ -23,7 +25,7 @@ O recorte da foto do topo (fundo removido) é gerado uma vez com a biblioteca re
 import json
 import sys
 from pathlib import Path
-from PIL import Image, ImageOps
+from PIL import Image, ImageDraw, ImageOps
 
 OUT = Path(__file__).resolve().parent.parent / "public" / "images"
 
@@ -31,6 +33,7 @@ CONFIG = Path(__file__).resolve().parent / "photos.json"
 
 SIZES = {"square": (800, 800), "portrait": (800, 1000)}
 CUTOUT_HEIGHT = 1000
+SOCIAL_SIZE = (1200, 630)
 FULL_MAX_SIDE = 1400
 
 
@@ -48,8 +51,12 @@ def crop_to_ratio(im: Image.Image, ratio: float, center: tuple[float, float]) ->
 
 
 def save(im: Image.Image, dest: Path) -> None:
+    """Salva no formato da extensão: .webp para o site, .jpg para redes sociais."""
     dest.parent.mkdir(parents=True, exist_ok=True)
-    im.save(dest, "WEBP", quality=80, method=6)
+    if dest.suffix == ".jpg":
+        im.convert("RGB").save(dest, "JPEG", quality=85, optimize=True, progressive=True)
+    else:
+        im.save(dest, "WEBP", quality=80, method=6)
     print(f"{dest.relative_to(OUT).as_posix():40} {dest.stat().st_size // 1024:>4} KB")
 
 
@@ -58,6 +65,25 @@ def make_cutout(im: Image.Image) -> Image.Image:
     im = im.convert("RGBA")
     im = im.crop(im.getchannel("A").getbbox())
     return im.resize((round(im.width * CUTOUT_HEIGHT / im.height), CUTOUT_HEIGHT), Image.Resampling.LANCZOS)
+
+
+def make_social(im: Image.Image, item: dict) -> Image.Image:
+    """Imagem de compartilhamento: recorte sobre fundo com arco, ou foto comum recortada."""
+    w, h = SOCIAL_SIZE
+    if im.mode != "RGBA":
+        return crop_to_ratio(im.convert("RGB"), w / h, tuple(item.get("center", (0.5, 0.5)))).resize(SOCIAL_SIZE, Image.Resampling.LANCZOS)
+
+    canvas = Image.new("RGB", SOCIAL_SIZE, item.get("background", "#ffffff"))
+    person = make_cutout(im)
+    person = person.resize((round(person.width * h * 0.94 / person.height), round(h * 0.94)), Image.Resampling.LANCZOS)
+    x = (w - person.width) // 2
+    if "arch" in item:
+        arch_w = round(person.width * 1.15)
+        ImageDraw.Draw(canvas).rounded_rectangle(
+            ((w - arch_w) // 2, round(h * 0.12), (w + arch_w) // 2, h + arch_w // 2), radius=arch_w // 2, fill=item["arch"]
+        )
+    canvas.paste(person, (x, h - person.height), person)
+    return canvas
 
 
 def make_full(im: Image.Image) -> Image.Image:
@@ -74,6 +100,9 @@ def main(src_dir: Path) -> None:
 
         if item["aspect"] == "cutout":
             save(make_cutout(im), OUT / dest)
+            continue
+        if item["aspect"] == "social":
+            save(make_social(im, item), OUT / dest)
             continue
 
         im = im.convert("RGB")

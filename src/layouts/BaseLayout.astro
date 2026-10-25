@@ -17,17 +17,36 @@ const { title = `${siteConfig.name} | Cílios e sobrancelhas`, description = sit
   Astro.props;
 
 const canonical = new URL(Astro.url.pathname, siteConfig.url).href;
+const absolute = (path: string) => new URL(path, siteConfig.url).href;
+const socialImage = absolute(siteConfig.socialImage.src);
 
-// JSON-LD: ajuda o Google a entender que é um negócio de beleza
+// JSON-LD: dados estruturados que o Google lê.
+// WebSite define o nome que aparece em cima do link na busca; o negócio diz o que é e onde atende.
 const structuredData = {
   "@context": "https://schema.org",
-  "@type": siteConfig.schemaType,
-  name: siteConfig.name,
-  description: siteConfig.description,
-  url: siteConfig.url,
-  areaServed: siteConfig.region,
-  sameAs: [instagramLink()],
-  potentialAction: { "@type": "ReserveAction", target: whatsappLink() },
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": absolute("/#website"),
+      name: siteConfig.name,
+      alternateName: siteConfig.shortName,
+      url: absolute("/"),
+      inLanguage: "pt-BR",
+    },
+    {
+      "@type": siteConfig.schemaType,
+      "@id": absolute("/#business"),
+      name: siteConfig.name,
+      description: siteConfig.description,
+      url: absolute("/"),
+      image: socialImage,
+      logo: absolute("/favicon-192.png"),
+      telephone: `+${siteConfig.contact.whatsapp}`,
+      areaServed: siteConfig.region,
+      sameAs: [instagramLink()],
+      potentialAction: { "@type": "ReserveAction", target: whatsappLink() },
+    },
+  ],
 };
 ---
 
@@ -40,16 +59,27 @@ const structuredData = {
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
     <meta name="theme-color" content={siteConfig.theme.color} />
+    <!-- Deixa o Google mostrar foto grande do site na busca -->
+    <meta name="robots" content="max-image-preview:large" />
+
+    <!-- Ícones: o Google usa o PNG ao lado do nome do site na busca; o iPhone, o apple-touch-icon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="preload" as="image" href={hero.image.src} type="image/webp" />
 
-    <!-- Open Graph: como o link aparece quando compartilhado no WhatsApp/Instagram -->
+    <!-- Open Graph: como o link aparece quando compartilhado no WhatsApp/Instagram/Facebook -->
     <meta property="og:type" content="website" />
     <meta property="og:locale" content={siteConfig.locale} />
     <meta property="og:site_name" content={siteConfig.name} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={socialImage} />
+    <meta property="og:image:width" content={String(siteConfig.socialImage.width)} />
+    <meta property="og:image:height" content={String(siteConfig.socialImage.height)} />
+    <meta property="og:image:alt" content={siteConfig.socialImage.alt} />
+    <meta name="twitter:card" content="summary_large_image" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
