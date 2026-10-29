@@ -31,13 +31,13 @@ export const serviceCategories: ServiceCategory[] = [
       {
         slug: "divine-bloom-3d",
         name: "Volume Divine Bloom 3D",
-        description: "Manutenção a cada 20 dias.",
+        description: "Leques com 3 fios em cada cílio natural, para um olhar cheio e marcante, mas ainda leve. Manutenção a cada 20 dias.",
         image: "/images/servicos/divine-bloom-3d.webp",
       },
       {
         slug: "volume-4d",
         name: "Volume 4D",
-        description: "Manutenção a cada 20 dias.",
+        description: "Leques com 4 fios em cada cílio natural: mais densidade e um efeito mais intenso que o 3D. Manutenção a cada 20 dias.",
         image: "/images/servicos/volume-4d.webp",
       },
       {

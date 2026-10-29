@@ -24,10 +24,16 @@ export const siteConfig = {
   /** Imagem que aparece ao compartilhar o link e que o Google pode usar na busca (gerada por scripts/optimize_photos.py) */
   socialImage: {
     src: "/images/social.jpg",
-    alt: "Studio KB Beauty: cílios e sobrancelhas",
+    alt: "Profissional do Studio KB Beauty aplicando extensão de cílios",
     width: 1200,
     height: 630,
   },
+
+  /**
+   * Imagens que não devem aparecer em buscadores (Google Imagens, miniatura do resultado).
+   * Ex.: fotos da própria cliente. Continuam visíveis normalmente no site.
+   */
+  hiddenFromSearch: ["/images/hero/", "/images/sobre/", "/images/full/sobre/"],
 
   region: "Zona Leste de São Paulo",
   regionNote: "O endereço é enviado no momento do agendamento.",

@@ -10,7 +10,8 @@ para outro, só o JSON). Cada entrada:
 - center: centro do recorte, em fração da largura e da altura
 - aspect: "square" (1:1), "portrait" (4:5), "cutout" (recorte com fundo transparente)
   ou "social" (1200x630, a imagem que aparece ao compartilhar o link e no Google)
-- background / arch (só no "social" com recorte): cor do fundo e do arco atrás da pessoa
+- background / arch (só no "social"): cor do fundo e do arco. Com recorte, a pessoa fica sobre o fundo;
+  com foto comum, a foto inteira fica dentro do arco
 
 Para cada foto (menos recortes) também sai uma versão inteira, sem corte, em
 public/images/full/<mesmo caminho>: é a que abre em tela cheia quando a pessoa toca na foto.
@@ -67,22 +68,45 @@ def make_cutout(im: Image.Image) -> Image.Image:
     return im.resize((round(im.width * CUTOUT_HEIGHT / im.height), CUTOUT_HEIGHT), Image.Resampling.LANCZOS)
 
 
-def make_social(im: Image.Image, item: dict) -> Image.Image:
-    """Imagem de compartilhamento: recorte sobre fundo com arco, ou foto comum recortada."""
-    w, h = SOCIAL_SIZE
-    if im.mode != "RGBA":
-        return crop_to_ratio(im.convert("RGB"), w / h, tuple(item.get("center", (0.5, 0.5)))).resize(SOCIAL_SIZE, Image.Resampling.LANCZOS)
+def draw_arch(canvas: Image.Image, width: int, top: int, color: str) -> None:
+    """Desenha um arco (retângulo com o topo arredondado) centralizado e encostado embaixo."""
+    w, h = canvas.size
+    ImageDraw.Draw(canvas).rounded_rectangle(
+        ((w - width) // 2, top, (w + width) // 2, h + width // 2), radius=width // 2, fill=color
+    )
 
-    canvas = Image.new("RGB", SOCIAL_SIZE, item.get("background", "#ffffff"))
-    person = make_cutout(im)
-    person = person.resize((round(person.width * h * 0.94 / person.height), round(h * 0.94)), Image.Resampling.LANCZOS)
-    x = (w - person.width) // 2
+
+def make_social(im: Image.Image, item: dict) -> Image.Image:
+    """
+    Imagem de compartilhamento (1200x630). Três formatos, conforme a foto e o JSON:
+    - recorte (PNG sem fundo): a pessoa sobre a cor de fundo, com arco atrás;
+    - foto comum com "background": a foto inteira dentro de um arco, sobre a cor de fundo;
+    - foto comum sem "background": a foto recortada para preencher tudo.
+    """
+    w, h = SOCIAL_SIZE
+    if im.mode == "RGBA":
+        canvas = Image.new("RGB", SOCIAL_SIZE, item.get("background", "#ffffff"))
+        person = make_cutout(im)
+        person = person.resize((round(person.width * h * 0.94 / person.height), round(h * 0.94)), Image.Resampling.LANCZOS)
+        if "arch" in item:
+            draw_arch(canvas, round(person.width * 1.15), round(h * 0.12), item["arch"])
+        canvas.paste(person, ((w - person.width) // 2, h - person.height), person)
+        return canvas
+
+    im = im.convert("RGB")
+    if "background" not in item:
+        return crop_to_ratio(im, w / h, tuple(item.get("center", (0.5, 0.5)))).resize(SOCIAL_SIZE, Image.Resampling.LANCZOS)
+
+    # Foto inteira em retrato (3:4) dentro de um arco, com uma borda do arco em volta
+    canvas = Image.new("RGB", SOCIAL_SIZE, item["background"])
+    frame_h = round(h * 0.88)
+    frame_w = round(frame_h * 3 / 4)
     if "arch" in item:
-        arch_w = round(person.width * 1.15)
-        ImageDraw.Draw(canvas).rounded_rectangle(
-            ((w - arch_w) // 2, round(h * 0.12), (w + arch_w) // 2, h + arch_w // 2), radius=arch_w // 2, fill=item["arch"]
-        )
-    canvas.paste(person, (x, h - person.height), person)
+        draw_arch(canvas, frame_w + 32, h - frame_h - 16, item["arch"])
+    photo = crop_to_ratio(im, 3 / 4, tuple(item.get("center", (0.5, 0.5)))).resize((frame_w, frame_h), Image.Resampling.LANCZOS)
+    mask = Image.new("L", photo.size, 0)
+    ImageDraw.Draw(mask).rounded_rectangle((0, 0, frame_w, frame_h + frame_w), radius=frame_w // 2, fill=255)
+    canvas.paste(photo, ((w - frame_w) // 2, h - frame_h), mask)
     return canvas
 
 

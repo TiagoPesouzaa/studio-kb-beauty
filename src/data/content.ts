@@ -64,7 +64,7 @@ export const gallery: GalleryImage[] = [
 ];
 
 export const about = {
-  title: "Sobre o estúdio",
+  title: "Sobre o Studio",
   instagramLabel: "Acompanhe no Instagram",
   // TODO: trocar por um texto dela, em primeira pessoa (trajetória, cursos, o que ama no trabalho)
   paragraphs: [
